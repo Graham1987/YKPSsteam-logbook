@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STEAM Workshop Logbook · YK Pao School</title>
+<style>
+  :root{
+    --ykp-green: #62A60A;
+    --ykp-green-dark: #004405;
+    --ykp-green-mint: #8DC664;
+    --ykp-green-tint: #f2f8ea;
+    --ykp-gold: #EDA900;
+    --ykp-gold-tint: #fef8e6;
+    --ykp-navy: #004A82;
+    --ykp-navy-tint: #eef5fb;
+    --ykp-red: #A11F20;
+    --ykp-orange: #E96800;
+    --ykp-charcoal: #231815;
+    --bg: #faf9f5;
+    --ink: #231815;
+    --mut: #5c5852;
+    --bd: #e2dfd7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}
+  .wrap{max-width:1160px;margin:0 auto;padding:14px}
+  .card,.top{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 6px rgba(35,24,21,.03)}
+  .top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;border-top:4px solid var(--ykp-green)}
+  .brand{display:flex;align-items:center;gap:12px}
+  .ykp-emblem{width:46px;height:46px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .pills{display:inline-flex;background:#f3f1ec;padding:3px;border-radius:999px;border:1px solid var(--bd)}
+  .pill{border:none;background:transparent;padding:5px 11px;border-radius:999px;font-size:12px;font-weight:600;color:var(--mut);cursor:pointer;transition:all .15s}
+  .pill.active{background:var(--ykp-green);color:#fff}
+  .btn{border:1px solid var(--bd);background:#fff;color:var(--ink);padding:8px 13px;border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:all .15s}
+  .btn:hover{background:#f8f6f1}
+  .btn-p{background:var(--ykp-green);color:#fff;border-color:var(--ykp-green)}
+  .btn-p:hover{background:var(--ykp-green-dark);border-color:var(--ykp-green-dark)}
+  .btn-a{background:var(--ykp-gold-tint);color:#8a5e00;border-color:var(--ykp-gold)}
+  .btn-a:hover{background:#fdf0c4}
+  .btn-n{background:var(--ykp-navy-tint);color:var(--ykp-navy);border-color:#b8d4ea}
+  .btn-n:hover{background:#dfeef9}
+  .btn-d{background:#fdf2f2;color:var(--ykp-red);border-color:#f3c6c6}
+  .btn-k{background:var(--ykp-charcoal);color:#fff;border-color:var(--ykp-charcoal)}
+  .g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+  .g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:12px}
+  label.lbl{display:block;font-size:12px;font-weight:700;margin-bottom:4px;color:var(--ykp-green-dark)}
+  select,input,textarea{width:100%;padding:8px 10px;border:1px solid var(--bd);border-radius:9px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink)}
+  select:focus,input:focus,textarea:focus{outline:2px solid var(--ykp-green-mint);border-color:var(--ykp-green)}
+  textarea{min-height:84px;resize:vertical}
+  .wagoll-bar{display:inline-flex;align-items:center;gap:4px;background:var(--ykp-gold-tint);border:1.5px solid var(--ykp-gold);padding:3px 6px;border-radius:10px}
+  .wagoll-bar select{width:auto;padding:4px 8px;font-size:12px;font-weight:700;color:#7a5200;border-color:var(--ykp-gold)}
+  .filter-bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;background:#f7f5f0;border:1px solid var(--bd);padding:10px 12px;border-radius:11px;margin-bottom:12px}
+  .filter-bar select{width:auto;min-width:230px;max-width:100%;font-weight:600}
+  .meta{margin-top:12px;padding:12px;border-radius:12px;background:#fcfbf8;border:1px solid var(--bd)}
+  .sbadge{display:inline-block;background:var(--ykp-green-tint);border:1px solid var(--ykp-green-mint);color:var(--ykp-green-dark);font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;margin:2px 4px 2px 0}
+  .spills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:6px;margin-top:8px}
+  .sp{background:#f5f3ed;border:1px solid #e6e2d6;border-radius:8px;padding:6px 10px;font-size:12px}
+  .evbox{margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--ykp-navy-tint);border:1px solid #b8d4ea;font-size:12px;color:var(--ykp-navy)}
+  .tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-bottom:14px}
+  .tab{text-align:left;background:#fff;border:2px solid var(--bd);border-radius:12px;padding:12px;cursor:pointer;transition:all .15s}
+  .tab:hover{border-color:var(--ykp-green-mint)}
+  .tab.active{border-color:var(--ykp-green);background:var(--ykp-green-tint)}
+  .tab-kicker{font-size:11px;font-weight:800;color:var(--ykp-green-dark)}
+  .st{border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:10px}
+  .twrap{overflow-x:auto;margin-top:8px}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th,td{border:1px solid var(--bd);padding:8px;text-align:left;vertical-align:top}
+  th{background:var(--ykp-green-dark);color:#fff}
+  tr:nth-child(even) td{background:#faf9f6}
+  .strand-hdr td{background:var(--ykp-green)!important;color:#fff;font-weight:800;font-size:12px;letter-spacing:.02em}
+  .std-col{min-width:190px;background:#fcfbf8!important}
+  .std-tag{display:inline-block;background:var(--ykp-green);color:#fff;font-weight:800;font-size:11px;padding:2px 6px;border-radius:5px;margin-bottom:3px}
+  .std-desc{display:block;font-size:11px;color:var(--mut);font-weight:400;margin-top:3px;line-height:1.35}
+  .band-as{background:var(--ykp-green)!important;color:#fff;font-weight:800}
+  .band-a{background:var(--ykp-green-mint)!important;color:var(--ykp-green-dark);font-weight:800}
+  .band-b{background:var(--ykp-gold)!important;color:#231815;font-weight:800}
+  .band-c{background:var(--ykp-orange)!important;color:#fff;font-weight:800}
+  .band-d{background:var(--ykp-red)!important;color:#fff;font-weight:800}
+  .band-e{background:var(--ykp-charcoal)!important;color:#fff;font-weight:800}
+  .rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;margin-top:10px}
+  .tile{border:1px solid var(--bd);border-radius:9px;padding:9px 11px;display:flex;justify-content:space-between;align-items:center;font-size:12px}
+  .tile.done{border-color:var(--ykp-green);background:var(--ykp-green-tint);cursor:pointer}
+  .banner-ok{background:var(--ykp-navy-tint);border:1.5px solid var(--ykp-navy);color:var(--ykp-navy);padding:12px 14px;border-radius:10px;margin-top:10px;font-size:13px;display:none}
+  .modal{position:fixed;inset:0;background:rgba(35,24,21,.58);display:none;align-items:center;justify-content:center;padding:14px;z-index:99}
+  .modal.open{display:flex}
+  .mbox{background:#fff;border-radius:14px;max-width:650px;width:100%;max-height:85vh;overflow-y:auto;padding:18px;border-top:4px solid var(--ykp-green)}
+  .toast{position:fixed;bottom:14px;right:14px;background:var(--ykp-green-dark);color:#fff;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:600;display:none;z-index:100;border-left:4px solid var(--ykp-gold)}
+  .hidden{display:none!important}
+  body.lang-en .zh{display:none!important}
+  body.lang-zh .en{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <div class="ykp-emblem" aria-label="YK Pao School Emblem">
+        <svg viewBox="0 0 64 64" width="46" height="46" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="7" y="7" width="50" height="50" stroke="#62A60A" stroke-width="3.5" fill="#ffffff"/>
+          <path d="M32 56V34M32 42L21 31M32 37L43 26M32 30L25 20" stroke="#62A60A" stroke-width="3.2" stroke-linecap="round"/>
+          <ellipse cx="18" cy="24" rx="5.5" ry="3.2" transform="rotate(-25 18 24)" fill="#62A60A"/>
+          <ellipse cx="26" cy="15" rx="5.5" ry="3.2" transform="rotate(15 26 15)" fill="#62A60A"/>
+          <ellipse cx="42" cy="17" rx="5.5" ry="3.2" transform="rotate(-15 42 17)" fill="#62A60A"/>
+          <ellipse cx="47" cy="31" rx="5.5" ry="3.2" transform="rotate(25 47 31)" fill="#62A60A"/>
+          <ellipse cx="17" cy="39" rx="5" ry="3" transform="rotate(20 17 39)" fill="#8DC664"/>
+          <circle cx="33" cy="19" r="4.5" fill="#EDA900"/>
+          <circle cx="20" cy="32" r="4.5" fill="#EDA900"/>
+          <circle cx="44" cy="25" r="4.5" fill="#EDA900"/>
+        </svg>
+      </div>
+      <div>
+        <strong style="font-size:17px;color:var(--ykp-green-dark)">包玉刚实验学校 · STEAM Workshop Logbook</strong>
+        <div style="font-size:12px;color:var(--mut)"><span style="color:var(--ykp-green);font-weight:700">YK PAO SCHOOL</span> · <span class="zh">设计与工程实验档案 · </span>OneDrive Portfolio</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="pills">
+        <button type="button" class="pill active" data-lang="both">双语 Both</button>
+        <button type="button" class="pill" data-lang="zh">中文</button>
+        <button type="button" class="pill" data-lang="en">EN</button>
+      </div>
+      <div class="pills">
+        <button type="button" class="pill active" id="mStu"><span class="en">Student</span><span class="zh"> / 学生端</span></button>
+        <button type="button" class="pill" id="mTch"><span class="en">Teacher</span><span class="zh"> / 教师端</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="stuView">
+    <div class="card">
+      <div class="row" style="justify-content:space-between">
+        <div>
+          <strong style="font-size:16px;color:var(--ykp-green-dark)"><span class="en">Engineering Design &amp; Reflection Log</span><span class="zh"> · 工程设计与跨学科反思记录</span></strong>
+          <div style="font-size:11px;color:var(--mut)">1-Click Save &amp; Upload to YK Pao OneDrive · Resume previous .html anytime to update</div>
+        </div>
+        <div class="row">
+          <div class="wagoll-bar">
+            <select id="selBand" aria-label="WAGOLL Grade Band">
+              <option value="A*">Band A* (Exceeds)</option>
+              <option value="A">Band A (Meets)</option>
+              <option value="B">Band B (Approaching)</option>
+              <option value="C">Band C (Beginning)</option>
+              <option value="D">Band D (Not Yet)</option>
+              <option value="E">Band E (Incomplete)</option>
+            </select>
+            <button type="button" class="btn btn-a" id="bWag" style="border:none">⭐ Load WAGOLL</button>
+          </div>
+          <label class="btn btn-n" style="cursor:pointer" title="Reload a previously saved .html portfolio file to continue editing">
+            📂 Resume Previous .html
+            <input type="file" id="resumeHtmlIn" accept=".html,.htm" style="display:none" />
+          </label>
+          <button type="button" class="btn btn-d" id="bRst">↺ Reset</button>
+          <button type="button" class="btn btn-p" id="bSub1">☁ Save &amp; Upload to OneDrive / 保存并上传</button>
+        </div>
+      </div>
+
+      <div class="g3">
+        <div><label class="lbl" for="sCls"><span class="en">1. Select Class</span><span class="zh"> / 选择班级</span></label><select id="sCls"></select></div>
+        <div><label class="lbl" for="sStu"><span class="en">2. Select Your Name</span><span class="zh"> / 选择学生姓名</span></label><select id="sStu"></select></div>
+        <div><label class="lbl" for="sPrj"><span class="en">3. Select Project (4 G7 + 4 G8)</span><span class="zh"> / 选择课程项目</span></label><select id="sPrj"></select></div>
+      </div>
+      <div class="meta" id="pMeta"></div>
+      <div class="banner-ok" id="subBanner"></div>
+    </div>
+
+    <div class="tabs">
+      <button type="button" class="tab active" data-p="p1">
+        <div class="tab-kicker">PART 1 · <span id="c1">0/9</span></div>
+        <strong><span class="en">Design Process (9 Stages)</span><span class="zh"> · 工程设计九步法</span></strong>
+      </button>
+      <button type="button" class="tab" data-p="p2">
+        <div class="tab-kicker">PART 2 · <span id="c2">0/6</span></div>
+        <strong><span class="en">STEAM Reflection &amp; Photos</span><span class="zh"> · 反思日志与照片上传</span></strong>
+      </button>
+      <button type="button" class="tab" data-p="p3">
+        <div class="tab-kicker">PART 3 · Y6 → Y7 → Y8</div>
+        <strong><span class="en">Standards, Scales (A*–E) &amp; Progression</span><span class="zh"> · 评估量规与三年进阶</span></strong>
+      </button>
+    </div>
+
+    <div id="p1" class="card">
+      <div class="filter-bar">
+        <div class="row">
+          <label for="selStageFilter" style="font-size:12px;font-weight:700;color:var(--ykp-green-dark)">Jump to Stage / 选择阶段:</label>
+          <select id="selStageFilter">
+            <option value="ALL">Show All 9 Stages / 显示全部九步</option>
+          </select>
+        </div>
+        <div class="row" id="stageStepBtns">
+          <button type="button" class="btn" id="btnPrevSt">← Prev</button>
+          <button type="button" class="btn" id="btnNextSt">Next →</button>
+        </div>
+      </div>
+      <div id="stBox"></div>
+    </div>
+
+    <div id="p2" class="card hidden">
+      <div class="filter-bar">
+        <div class="row">
+          <label for="selRefFilter" style="font-size:12px;font-weight:700;color:var(--ykp-green-dark)">Focus Area / 反思维度筛选:</label>
+          <select id="selRefFilter">
+            <option value="ALL">Show All 6 STEAM Areas / 显示全部维度</option>
+          </select>
+        </div>
+      </div>
+      <div id="rfBox" class="g2"></div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--bd)">
+        <label class="lbl" for="phIn">Attach Prototype &amp; Process Photos (Bundled inside your portfolio file) / 添加原型与过程照片</label>
+        <input type="file" id="phIn" accept="image/*" multiple />
+        <div id="phGrid" class="row" style="margin-top:8px"></div>
+      </div>
+    </div>
+
+    <div id="p3" class="card hidden">
+      <div class="filter-bar">
+        <div class="row">
+          <label for="selScaleView" style="font-size:12px;font-weight:700;color:var(--ykp-green-dark)">Rubric View / 量规视图:</label>
+          <select id="selScaleView">
+            <option value="prog">3-Year Progression Table (Grades 6 → 7 → 8)</option>
+            <option value="y7">Year 7 Learning Scales (7.S · A* to E)</option>
+            <option value="y8">Year 8 Learning Scales (8.S · A* to E)</option>
+          </select>
+        </div>
+        <div class="row">
+          <label for="selStdFilter" style="font-size:12px;font-weight:700;color:var(--ykp-green-dark)">Filter Standard / 筛选单项标准:</label>
+          <select id="selStdFilter">
+            <option value="ALL">Show All 11 Standards / 显示全部标准</option>
+            <option value="S.1A">S.1A · Safety Rules (工具安全规范)</option>
+            <option value="S.1B">S.1B · Teamwork &amp; Leadership (团队协作)</option>
+            <option value="S.1C">S.1C · Workspace Care (工位与资源整理)</option>
+            <option value="S.2A">S.2A · Science Concepts (科学原理应用)</option>
+            <option value="S.2B">S.2B · Math &amp; Thresholds (数学测量与阈值)</option>
+            <option value="S.2C">S.2C · Coding &amp; Logic (逻辑思维与编程)</option>
+            <option value="S.3A">S.3A · Creative Ideas &amp; UX (创意与用户体验)</option>
+            <option value="S.3B">S.3B · Process Documentation (过程记录与迭代)</option>
+            <option value="S.3C">S.3C · Reflection (过程反思与改进)</option>
+            <option value="S.4A">S.4A · Craftsmanship (工艺品质与细节)</option>
+            <option value="S.4B">S.4B · Persistence &amp; Grit (毅力与问题排查)</option>
+          </select>
+        </div>
+      </div>
+      <div id="scaleContent"></div>
+    </div>
+
+    <div class="card row" style="justify-content:space-between">
+      <span style="font-size:12px;color:var(--mut)">Downloads your completed portfolio file and opens your YK Pao OneDrive upload page:</span>
+      <div class="row">
+        <button type="button" class="btn btn-p" id="bSub2">☁ Save &amp; Upload to OneDrive / 保存并上传</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="tchView" class="hidden">
+    <div class="card">
+      <div class="row" style="justify-content:space-between">
+        <div>
+          <strong style="font-size:17px;color:var(--ykp-green-dark)">Educator Review Portal · YK Pao OneDrive 学生作品库</strong>
+          <div style="font-size:12px;color:var(--mut)">Submitted on this browser: <strong id="stSub">0</strong> / 180 Enrolled</div>
+        </div>
+        <div class="row">
+          <a class="btn btn-p" href="https://ykpaoschool-my.sharepoint.com" target="_blank">📁 Open YK Pao OneDrive</a>
+          <label class="btn btn-n" style="cursor:pointer">
+            ⬆ Load Student .html Files
+            <input type="file" id="tchLoadHtmlIn" accept=".html,.htm" multiple style="display:none" />
+          </label>
+          <button type="button" class="btn btn-k" id="bExp">⬇ Export All (.json)</button>
+          <button type="button" class="btn btn-d" id="bLock">🔒 Lock</button>
+        </div>
+      </div>
+
+      <div style="background:var(--ykp-navy-tint);border:1px solid #b8d4ea;border-radius:11px;padding:12px;margin-top:12px">
+        <label class="lbl" for="odLink" style="color:var(--ykp-navy)">YK Pao OneDrive "Request Files" Upload Link (Active &amp; Pre-Configured)</label>
+        <div class="row">
+          <input type="text" id="odLink" style="flex:1;min-width:240px" />
+          <button type="button" class="btn btn-p" id="bOdSave">Save Link</button>
+          <a class="btn" id="bOdOpen" href="https://ykpaoschool-my.sharepoint.com/:f:/g/personal/graham_odonoghue_ykpaoschool_cn/IgCfBTewyURmTLKZ1OGQOi5PASsXMGMCyMUaW6AawHGMP1w" target="_blank">Open Upload Page</a>
+        </div>
+      </div>
+
+      <div id="tChips" class="row" style="margin-top:12px"></div>
+      <div id="tGrid" class="rgrid"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="pwMod">
+  <div class="mbox" style="max-width:380px">
+    <h3 style="margin-top:0;color:var(--ykp-green-dark)">Teacher Access / 教师端验证</h3>
+    <input type="password" id="pwIn" placeholder="Password" />
+    <div id="pwErr" style="color:var(--ykp-red);font-size:12px;margin-top:6px;display:none">Incorrect password / 密码错误</div>
+    <div class="row" style="justify-content:flex-end;margin-top:12px">
+      <button type="button" class="btn" id="pwCan">Cancel</button>
+      <button type="button" class="btn btn-p" id="pwOk">Unlock</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="dtMod">
+  <div class="mbox">
+    <div class="row" style="justify-content:space-between;border-bottom:1px solid var(--bd);padding-bottom:8px">
+      <strong id="dtTitle" style="color:var(--ykp-green-dark)">Portfolio</strong>
+      <button type="button" class="btn" id="dtCls">✕</button>
+    </div>
+    <div id="dtBody" style="margin-top:10px;font-size:12px"></div>
+    <div class="row" style="margin-top:12px">
+      <button type="button" class="btn btn-p" id="dtDl">Download HTML</button>
+      <button type="button" class="btn btn-a" id="dtEd">Load in Editor</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  // Pre-configured with your YK Pao School OneDrive Request Files link
+  const DEFAULT_ONEDRIVE_REQUEST_URL = "https://ykpaoschool-my.sharepoint.com/:f:/g/personal/graham_odonoghue_ykpaoschool_cn/IgCfBTewyURmTLKZ1OGQOi5PASsXMGMCyMUaW6AawHGMP1w";
+
+  const mem={};
+  const stg={
+    get:k=>{try{return localStorage.getItem(k)}catch(e){return mem[k]||null}},
+    set:(k,v)=>{mem[k]=v;try{localStorage.setItem(k,v)}catch(e){}},
+    del:k=>{delete mem[k];try{localStorage.removeItem(k)}catch(e){}}
+  };
+
+  const RAW_ROSTERS={
+    "7A":["Cao, Serina","Chau, Haoze","Chen, Cynthia","Chen, Jessie","Geng, Kingsley","Hou, Allen","Jin, Phil","Lin, Stan","Liu, Louane","Luo, Danna","Qin, Silver","Tie, Chant","Xu, Claire","Yap, Ethan","Yu, Heihei","Zhang, Elina","Zhang, Mabel","Zhu, Jamie","Shi, David"],
+    "7B":["Chen, Eric","Chen, Mia","Chu, Addison","Fang, Anna","Hsu, Sophia","Hu, QQ","Kang, Aiden","Kuo, Leanne","Lau, Anson","Li, Katelyn","Ma, Mark","Mu, Alice","Pan, Cici","Wang, Coco","Weller, Francis","Wong, Han","Yu, Maria","Zhang, Ethan","Zhou, Chloe"],
+    "7C":["Chen, Coby","Chen, Ivy","Chen, Roy","Diao, Melody","Ding, Justin","Hong, Annabelle","Hong, Ely","Hou, Alan","Hu, Austin","Li, Eileen","Liu, Michelle","Long, Annabelle","Tang, Elaine","Weng, Tim","Xi, Jaden","Xu, Simba","Yang, Aaron","Zhao, Angel","Li, Ian"],
+    "7D":["Chen, Charles","Chen, Yoyo","Darley, Evan","Han, Jared","Hong, Gordon","Ji, Shengyu","Li, Hanhan","Li, Julia","Li, Thea","Liu, Mimi","Peng, Molly","See, Shinwan","Seet, Hillary","Shi, Cecilia","Van Den Bogaerde, Lucas","Xie, Xiaoxiao","Yang, Johnny","Yung, Tsz Ki","Zuo, Noelle"],
+    "7E":["Cai, Wendy","Chen, Channing","Deng, Aileen","Gao, Darren","Hu, William","Huang, Joey","Hui, Jared","Lin, Charles","Lin, Yuri","Liu, Dora","Tang, Matthew","Teng, Angela","Wu, Micah","Xu, Alex","Yeh, Ariel","Zhuang, Stanley","Zou, Morri","Xia, Zoe"],
+    "7F":["Bo, Bella","Cao, Shawn","Chen, Kaden","Feng, Sophia","He, Pony","Liu, Tina","Luo, Jaden","Lyu, Abby","Miao, Leon","Qiu, Johnathan","Tan, Rachel","Tang, Echo","Wen, Ivy","Xia, Max","Xiao, Alex","Xu, James","Yang, Alice","Yang, Johnny","Zhang, Jasper"],
+    "7G":["Dao, Olivia","Du, Valery","Gu, Anthony","Hu, Michael","Jiang, Cecilia","Kong, Iris","Li, Anita","Liu, Jimmy","Liu, Moka","Lu, Isabelle","Ma, James","Min, Jessica","Tan, Nicholas","Tan, Regina","Wang, Jayden","Wang, Yomi","Xu, Ian","Xue, Huaxin","Zhu, Oscar"],
+    "7H":["Chane-Yene, Anaïs","Cibot, Leo","He, Leo","Kong, Derek","Lau, Grace","Li, Clara","Sartor, Francesca","Sha, Sally","Shi, Sophia","Tang, Dolce","Wang, Crystal","Wang, Rain","Wu, Daron","Xie, Linda","Xu, Karry","Zanotti, Arianna","Zhang, Wayne","Zheng, Oliver"],
+    "G8_STEAM":["Chen, Alexander","Deng, Victoria","Gao, Christopher","Huang, Elizabeth","Li, Jonathan","Lin, Katherine","Liu, Benjamin","Lu, Alexandra","Ma, Nicholas","Pan, Stephanie","Qian, Matthew","Shen, Caroline","Song, William","Sun, Rebecca","Tang, Zachary","Wang, Samantha","Wu, Nathaniel","Xu, Madeline","Yang, Gabriel","Ye, Isabella","Yu, Samuel","Zhang, Charlotte","Zhao, Daniel","Zhou, Abigail","Zhu, Thomas","Zou, Emily","Cai, Andrew","He, Grace","Jin, David","Ruan, Rachel"]
+  };
+
+  const TRIAL_PROFILES=["Trial Student (Test Upload)"];
+  const R=Object.assign({}, RAW_ROSTERS, { "TRIAL_TEST": TRIAL_PROFILES });
+
+  const P=[
+    {id:"y7_p1",g:"Y7",t:"Y7 Project 1 · Natural Dyeing – Sustainable Fabric Design / 自然蓝染与可持续织物设计",
+      st:["7.S.1A Dye safety checklist","7.S.1C Before/after workspace","7.S.2A Oxidation chemistry","7.S.2B Symmetry & pattern area","7.S.2C Predicted vs. actual fold","7.S.4A Crisp resist lines"],
+      m:["S: Oxidation chemistry; why tied regions resist indigo dye","T: Natural indigo vat & Shibori resist-binding","E: Tight rubber-band compression for crisp resist edges","A: Symmetric pattern design & indigo tonal contrast","M: Line symmetry & predicting unfolded geometric patterns","L: Precise Shibori folding, tying & dye safety"],
+      ev:"Recommended Evidence: Signed Dye Safety Checklist (7.S.1A), Oxidation Journal green→blue (7.S.2A), Predicted vs. Actual Pattern Diagram (7.S.2C), Crisp Dye Pattern Photo (7.S.4A).",
+      astar:{
+        s1:"Designing a sustainably indigo-dyed cotton bandana (450 × 450 mm) for middle-school students using Japanese Shibori resist folding, avoiding synthetic chemical dyes while achieving crisp geometric contrast.",
+        s2:"Natural indigo (indigotin) is insoluble in water until reduced into yellow-green leuco-indigo in an alkaline vat. When lifted into air, atmospheric oxygen (O2) oxidizes leuco-indigo back into insoluble deep blue locked inside cotton fibers. Mathematically, accordion folding in 1/6ths creates 4-axis reflection symmetry.",
+        s3:"1) Resist line bleed < 1.5 mm; 2) Balanced 60% indigo-dyed vs. 40% white resist area across 4 symmetry axes; 3) Zero color transfer after 3 cold rinse cycles.",
+        s4:"Sketched 4 Shibori options: radial Kumo binding, Arashi pole-wrapping, Kanoko rings, and Itajime accordion triangle folding. Selected Itajime triangle folding because tight band compression produces sharper geometric boundaries.",
+        s5:"Step 1: Pre-scour & wet 100% cotton fabric -> Step 2: Accordion fold into 6 equal strips, then equilateral triangles -> Step 3: Bind corners tightly with double-wrapped rubber bands -> Step 4: 3 × 3-minute vat dips, each followed by 10-minute air oxidation -> Step 5: Cold rinse until clear.",
+        s6:"Completed and signed the Dye Safety Checklist (7.S.1A): wore nitrile gloves, waterproof apron, tied hair back, kept studio windows open for ventilation, and wiped the dye table clean before and after the session (7.S.1C).",
+        s7:"Executed crisp accordion folds with aligned edges, squeezed trapped air bubbles out while submerged in the indigo vat so dye penetrated evenly, and hung the fabric open during oxidation intervals.",
+        s8:"In v1, loose rubber bands allowed dye seepage (~3.5 mm bleed). In v2, I doubled the rubber-band tension at the vertices and extended air oxidation to 10 minutes between dips, reducing bleed to < 1.0 mm.",
+        s9:"Comparing my Predicted vs. Actual pattern diagram (7.S.2C), the unfolded 4-axis bilateral symmetry matched my prediction with ~62% blue and 38% white area. Next time I would test laser-cut acrylic clamp blocks for bolder negative space.",
+        r_s:"Hypothesized and observed the chemical shift from yellow-green leuco-indigo to deep blue as atmospheric O2 oxidized the cotton fibers (7.S.2A).",
+        r_t:"Operated a natural fermentation indigo vat and applied mechanical resist-binding techniques without synthetic fixatives.",
+        r_e:"Engineered uniform rubber-band compression across 8 folded cotton layers to block capillary dye seepage into resist zones.",
+        r_a:"Designed high-contrast indigo and white geometric symmetry inspired by traditional Japanese Itajime textile craft (7.S.3A).",
+        r_m:"Divided 450 mm cloth into 1/6 accordion pleats, predicted 4-axis reflection symmetry, and used a transparent grid to calculate 62% dyed vs. 38% white area (7.S.2B).",
+        r_l:"Patience during 10-minute oxidation intervals and strict PPE/cleanup discipline produced crisp, bleed-free craftsmanship (7.S.4A/B)."
+      }},
+    {id:"y7_p2",g:"Y7",t:"Y7 Project 2 · Felt Storytelling Monster / 不织布声光故事怪兽",
+      st:["7.S.1A Needle safety","7.S.1B Peer gallery feedback","7.S.2A Pressure circuits","7.S.2B 5mm gap measurement","7.S.2C Test before sewing","7.S.3A 5 monster sketches","7.S.4A Blanket stitch quality","7.S.4B Circuit troubleshooting"],
+      m:["S: Finger pressure completes circuit; battery acts as switch","T: Copper tape & LED soft-circuit integration","E: Keep internal circuit flat (5mm gap) so felt doesn't bulge","A: Monster character design, color & facial expression","M: Measuring 5mm gap & 3mm consistent blanket stitch spacing","L: Cutting felt, hand sewing & circuit troubleshooting"],
+      ev:"Recommended Evidence: 'How My Circuit Works' Diagram (7.S.2A), 'Test Before Sewing' Photo (7.S.2C), 5 Monster Sketches (7.S.3A), High-Res Stitch Photo (7.S.4A).",
+      astar:{
+        s1:"Creating an interactive soft felt storytelling monster for younger primary students whose belly LED lights up when squeezed, accompanied by a 3-sentence character story.",
+        s2:"A closed series circuit requires an unbroken conductive path from Battery (+) -> Copper Tape -> LED Anode (+) -> LED Cathode (-) -> Copper Tape -> Battery (-). Leaving an exact 5 mm air gap turns finger pressure into a tactile switch (7.S.2A).",
+        s3:"1) Switch gap = 5 mm ± 1 mm so LED only lights when pressed; 2) Even 3 mm blanket stitch spacing with zero stuffing gaps; 3) Flat internal circuit profile (< 4 mm bulge).",
+        s4:"Drew 5 distinct monster concepts (7.S.3A) with varied silhouettes and expressions. Selected 'Lumo the Shy Cloud Monster' with high-contrast teal felt and a glowing amber belly LED that reinforces its story.",
+        s5:"Step 1: Cut front/back felt & facial features -> Step 2: Lay copper tape circuit on inner backing -> Step 3: TEST LED before sewing (7.S.2C) -> Step 4: Blanket-stitch perimeter leaving 30 mm battery pocket -> Step 5: Stuff lightly & close.",
+        s6:"Used a needle threader and finger guard, passed needles point-down, stored pins in the pincushion, and returned all scissors and felt scraps before cleanup (7.S.1A/1C).",
+        s7:"Applied continuous copper tape folds (avoiding sharp tears that break conductivity), poked the 5 mm LED cleanly through the belly felt, and stitched a uniform 3 mm blanket stitch around the perimeter (7.S.4A).",
+        s8:"During my 'Test Before Sewing' check (7.S.2C), the LED flickered because the copper tape crease had high resistance. In v2, I bridged the corner fold with a conductive patch and adjusted the switch gap from 2 mm (accidental trigger) to 5 mm (7.S.4B).",
+        s9:"Gallery walk peer feedback (7.S.1B) praised the neat 3 mm stitching and bright belly glow. For v3, I would sew a snap-button battery flap so the 3V coin cell can be easily replaced.",
+        r_s:"Diagrammed electron flow from 3V coin cell through copper tape and LED, explaining how finger pressure closes the 5 mm open switch gap (7.S.2A).",
+        r_t:"Integrated flexible adhesive copper tape and a 5 mm diffused LED into a soft e-textile plush body.",
+        r_e:"Engineered a low-profile internal felt pocket that keeps the coin cell aligned without bulging through the outer fabric.",
+        r_a:"Developed 5 original character sketches and chose warm/cool felt color contrast to match the monster's personality (7.S.3A).",
+        r_m:"Measured the exact 5 mm switch gap, 15 mm seam allowance, and maintained consistent 3 mm blanket-stitch intervals (7.S.2B).",
+        r_l:"Testing the circuit before sewing and troubleshooting corner tape resistance showed methodical persistence and pride in workmanship (7.S.4A/B)."
+      }},
+    {id:"y7_p3",g:"Y7",t:"Y7 Project 3 · AI Poem Speaker – The Voice of Emotion / AI情感诗歌发声盒",
+      st:["7.S.1B Class poem bank","7.S.2A Sound waves & mic","7.S.2B Dice probability","7.S.3A Color psychology","7.S.3B Audio progress log","7.S.4B Recording retake log"],
+      m:["S: How microphones capture sound vibrations & speakers play back","T: Audio recording module, button trigger & AI class word bank","E: Enclosure assembly & button circuit reliability","A: Color psychology matching emotion (red=passion, blue=sadness)","M: Probability (rolling a die to select random lines from class bank)","L: Recording audio, assembling box, basic wiring & decorating"],
+      ev:"Recommended Evidence: Class Bank Contribution Form (7.S.1B), Dice-Roll Probability Worksheet (7.S.2B), Color Psychology Rationale (7.S.3A), Recording Retake Log (7.S.4B).",
+      astar:{
+        s1:"Building a tactile tabletop poem speaker box that expresses the emotion 'Wonder' through generative dice-assisted poetry, expressive voice narration, and emotion-matched visual design.",
+        s2:"Sound waves are longitudinal air vibrations captured by a microphone diaphragm and converted into electrical signals stored on the audio chip; pressing the push-button closes the circuit so the speaker cone vibrates air back into audible speech (7.S.2A).",
+        s3:"1) Clear vocal recording (< 15 seconds) with zero background noise; 2) Tactile push-button triggers playback reliably on 10/10 presses; 3) Exterior color palette clearly communicates 'Wonder'.",
+        s4:"Brainstormed three emotions (Anger/Red, Calm/Green, Wonder/Deep Indigo & Gold). Selected 'Wonder' because starry indigo and warm gold visuals invite listeners to press the button and reflect.",
+        s5:"Step 1: Write 4 original lines & contribute to the shared Class Poem Bank (7.S.1B) -> Step 2: Roll 6-sided die twice to randomly sample 2 peer lines -> Step 3: Rehearse & record audio takes -> Step 4: Wire button/speaker & assemble enclosure.",
+        s6:"Handled audio modules by edges, kept liquids away from electronics, shared recording space quietly with classmates, and organized art/wiring tools at end of class (7.S.1A/1C).",
+        s7:"Combined my 4 original lines with 2 dice-selected lines from the class bank, recorded expressive narration with paced pauses, and mounted the speaker and momentary push-button cleanly inside the decorated box.",
+        s8:"Recorded 5 audio takes (7.S.4B): Take 1 had room echo, Take 3 clipped the microphone, and Take 5 achieved crisp vocal clarity by holding the mic 12 cm away with a 1-second pause before speaking.",
+        s9:"The finished box plays cleanly on every press and peers correctly identified the emotion 'Wonder' from the indigo-gold color psychology (7.S.3A). Adding an acoustic sound port hole on the front would boost volume further.",
+        r_s:"Labeled how acoustic sound vibrations convert into electrical signals in the microphone and back into pressure waves in the speaker (7.S.2A).",
+        r_t:"Combined algorithmic random sampling from a shared class text bank with a programmable push-button sound module.",
+        r_e:"Mounted the push-button switch, battery pack, and speaker inside a rigid box with strain-relieved wire connections.",
+        r_a:"Applied color psychology (deep indigo and gold star motifs) to visually express the emotion of 'Wonder' (7.S.3A).",
+        r_m:"Calculated dice-roll selection probability (1/6 chance per line; 1/36 two-line combination) from the 6-row class bank (7.S.2B).",
+        r_l:"Iterating through 5 vocal recording takes until clarity and pacing were optimal demonstrated strong persistence (7.S.4B)."
+      }},
+    {id:"y7_p4",g:"Y7",t:"Y7 Project 4 · 3D Modeling Stray Cat House / 3D建模流浪猫庇护所",
+      st:["7.S.1A Digital file care","7.S.1B Group stray cat research","7.S.1C Tinkercad naming","7.S.2B Millimeter dimensions","7.S.2C v1→v2→Final sequence","7.S.3A Empathy cat features","7.S.3B 3-stage screenshots","7.S.4A Clean 3-angle render"],
+      m:["S: Thermal insulation & raised floors keep cats warm (heat rises)","T: Tinkercad 3D modeling, alignment & grouping tools","E: Connected walls, removable roof & weather protection","A: Friendly color choice & welcoming shelter proportions","M: Measuring in millimeters (entrance 150–200mm, width, height)","L: 3D CAD modeling, organized file naming & following digital steps"],
+      ev:"Recommended Evidence: Dimensioned Cat House Sketch in mm (7.S.2B), Tinkercad Version History v1→v2→Final (7.S.2C), Process Photo Collage (7.S.3B), Clean 3-Angle Render (7.S.4A).",
+      astar:{
+        s1:"Designing a weather-resistant 3D shelter in Tinkercad for campus stray cats during cold, rainy Shanghai winters, prioritizing warmth, dry flooring, and safe escape visibility.",
+        s2:"Conduction draws body heat into cold concrete ground, while warm air rises. Elevating the shelter floor on 30 mm legs creates an insulating air gap, and a compact interior volume traps the cat's body heat (7.S.2A).",
+        s3:"1) Exterior dimensions 300 × 240 × 250 mm; 2) Circular entrance diameter = 180 mm raised 40 mm above floor; 3) Sloped overhanging roof (15° pitch) that lifts off cleanly for cleaning.",
+        s4:"Researched stray cat behavior in our group doc (7.S.1B) and sketched two designs: an A-frame tent and a raised pitched-roof cabin with a windbreak porch. Selected the pitched-roof cabin for maximum interior volume and rain runoff.",
+        s5:"Step 1: Model 300 × 240 mm base & 30 mm legs -> Step 2: Align 10 mm thick walls & cut 180 mm entrance hole -> Step 3: Build removable 15° pitched roof with overhang -> Step 4: Group & inspect 3 angles (7.S.2C).",
+        s6:"Maintained organized Tinkercad naming ('CatHouse_Base_v1', 'CatHouse_Final'), saved backups in our class folder, and logged off workstations properly (7.S.1A/1C).",
+        s7:"Used Tinkercad's Align, Workplane, and Ruler tools to snap all four walls flush with zero floating gaps, chamfered the 180 mm entrance edge for safety, and added ventilation slots under the eaves.",
+        s8:"In v1, the roof overlapped the side walls unevenly by 3 mm. In v2, I used the Align tool on X/Y axes and added an inner lip under the roof so it seats securely yet lifts off easily (7.S.4B).",
+        s9:"3-angle clean renders (7.S.4A) confirm watertight geometry, ergonomic 180 mm entrance sizing, and warm yellow/wood colors. Adding a hinged clear wind flap at the entrance would improve winter heat retention.",
+        r_s:"Applied conductive heat-loss prevention (30 mm raised floor air gap) and convective heat retention inside a compact shelter volume (7.S.2A).",
+        r_t:"Mastered Tinkercad 3D CAD tools (Ruler, Align, Hole boolean subtraction, Group) with disciplined version file naming (7.S.1C).",
+        r_e:"Engineered a removable pitched roof with an alignment lip and 20 mm rain overhang so caretakers can clean inside easily.",
+        r_a:"Rounded sharp doorway edges for cat safety and chose warm, welcoming exterior colors (7.S.3A).",
+        r_m:"Dimensioned every part in millimeters (300 × 240 × 250 mm footprint, 180 mm diameter entrance, 10 mm wall thickness) and calculated interior volume (7.S.2B).",
+        r_l:"Inspecting 3D renders from top, front, and isometric views to eliminate floating parts demonstrated meticulous digital craftsmanship (7.S.4A)."
+      }},
+    {id:"y8_p1",g:"Y8",t:"Y8 Project 1 · Knitted Pressure Mat / 编织压力感应发光垫",
+      st:["8.S.1A Conductive safety","8.S.1C Before/after workspace","8.S.2A Voltage divider","8.S.2B Spacer thickness (mm)","8.S.2C micro:bit code","8.S.3C 3-prompt reflection","8.S.4A Knitting tension"],
+      m:["S: Pressure closes circuit; resistor creates a voltage divider","T: Conductive fabric/foil + micro:bit analog input coding","E: Spacer thickness tuning (2mm sweet spot vs. false triggers)","A: Yarn color selection & neat 20cm × 20cm textile craft","M: Measuring 20cm × 20cm squares & testing 1mm/2mm/3mm spacers","L: Finger/needle knitting, gluing conductive fabric & wiring"],
+      ev:"Recommended Evidence: Before/After Workspace Photos (8.S.1C), Voltage Divider Diagram (8.S.2A), Spacer Thickness Measurement (8.S.2B), Written Reflection (8.S.3C).",
+      astar:{
+        s1:"Creating a soft, comfortable 20 cm × 20 cm knitted floor pressure mat that illuminates a night-light LED when stepped on, helping family members navigate dark hallways safely at night.",
+        s2:"The two conductive fabric layers act as a variable pressure switch inside a 3.3V voltage divider circuit with a 10 kΩ pull-down resistor: stepping on the mat compresses the spacer, closing the circuit and raising the analog pin voltage above threshold (8.S.2A).",
+        s3:"1) Two matched 200 × 200 mm knitted squares; 2) Spacer thickness calibrated so mat triggers under foot pressure (> 2 kg) without false triggers when idle; 3) Response latency < 0.2 s.",
+        s4:"Sketched striped and checkerboard yarn patterns; chose high-contrast navy and cream chunky yarn with a soft 2 mm perforated EVA foam spacer for uniform weight distribution.",
+        s5:"Step 1: Finger-knit two 200 × 200 mm squares with consistent loop tension -> Step 2: Bond conductive fabric inside each square -> Step 3: Test 1 mm, 2 mm, and 3 mm spacers -> Step 4: Wire voltage divider to micro:bit & code analog threshold.",
+        s6:"Checked circuits for shorts before powering on, kept conductive fabric scraps sorted away from exposed pins, and documented before/after workspace cleanup photos (8.S.1A/1C).",
+        s7:"Knitted two even 200 × 200 mm panels with zero dropped stitches (8.S.4A), clipped lead wires securely to the conductive backing, and programmed MakeCode to read analog pin P0.",
+        s8:"Tested 3 spacer thicknesses (8.S.2B): 1 mm stayed permanently shorted (reading > 900 idle); 3 mm required jumping to trigger; 2 mm foam with 15 mm holes gave clean readings (< 50 idle, > 750 stepped on). Adjusted code threshold to 500.",
+        s9:"The mat triggers reliably across 20/20 step tests and looks like a cozy woven rug. For v2, I would enclose the micro:bit in a 3D-printed side pocket with a LiPo battery.",
+        r_s:"Diagrammed the 3.3V → Conductive Mat → Analog Pin P0 → 10 kΩ Resistor → GND voltage divider explaining how pressure changes voltage (8.S.2A).",
+        r_t:"Programmed micro:bit analog input logic with serial plotting to monitor live pressure sensor values (8.S.2C).",
+        r_e:"Engineered a perforated 2 mm foam spacer matrix that separates the conductive plates at rest while flexing smoothly underfoot.",
+        r_a:"Selected warm navy-and-cream chunky yarn and maintained uniform knitting tension for a neat 20 × 20 cm textile finish (8.S.4A).",
+        r_m:"Measured exact 200 × 200 mm square dimensions and ran quantitative spacer calibration trials (1 mm vs. 2 mm vs. 3 mm) to set analog threshold = 500 (8.S.2B).",
+        r_l:"Combining traditional finger-knitting craft with iterative sensor threshold calibration showed strong persistence (8.S.4B)."
+      }},
+    {id:"y8_p2",g:"Y8",t:"Y8 Project 2 · Motion Sensor Flower / 人体红外感应发光花",
+      st:["8.S.1B Peer evaluation","8.S.2A PIR infrared detection","8.S.2B Sensor calibration (m)","8.S.2C Annotated micro:bit code","8.S.3A Colored flower sketch","8.S.4B Sensor troubleshooting"],
+      m:["S: PIR sensor detects changes in body heat (infrared radiation)","T: micro:bit MakeCode + PIR sensor + alligator clip circuit","E: Hiding PIR sensor behind flower center & battery in pot","A: Petal geometry, color harmony & botanical sculpture","M: Testing & calibrating detection thresholds at 1m, 2m, 3m","L: Cutting/assembling petals, connecting clips & block coding"],
+      ev:"Recommended Evidence: PIR Sensor Diagram (8.S.2A), Annotated Working Code Screenshot (8.S.2C), Colored Flower Design Sketch (8.S.3A), Sensor Troubleshooting Journal (8.S.4B).",
+      astar:{
+        s1:"Designing an interactive botanical sculpture for a school reception desk that detects approaching visitors via body heat and blooms with a warm central glow.",
+        s2:"A Pyroelectric Infrared (PIR) sensor uses a faceted Fresnel lens to focus ambient infrared (IR) radiation onto a pyroelectric crystal; when a warm human body walks across its field of view, the sudden IR differential outputs a HIGH digital signal to the micro:bit (8.S.2A).",
+        s3:"1) Reliable motion detection at 2.0 m distance; 2) Zero false triggers when room is empty; 3) PIR Fresnel lens cleanly integrated into the flower center with all wires hidden inside the pot.",
+        s4:"Created a colored botanical sketch (8.S.3A) featuring 6 layered coral-pink felt petals around a translucent yellow center diffuser, hiding the micro:bit and battery pack inside a weighted terracotta pot.",
+        s5:"Step 1: Cut & layer 6 symmetrical petals -> Step 2: Mount PIR sensor & central LED -> Step 3: Route insulated alligator leads down the stem into the pot -> Step 4: Code micro:bit & calibrate PIR range at 1 m, 2 m, 3 m.",
+        s6:"Verified 3V power polarity before connecting PIR VCC/GND/OUT pins, insulated alligator clip jaws to prevent short circuits, and shared component trays neatly (8.S.1A/1C).",
+        s7:"Assembled a sturdy wire-reinforced stem holding the 6-petal flower upright, diffused the center LED through frosted vellum, and annotated my working MakeCode program (8.S.2C).",
+        s8:"Initially, the PIR sensor triggered randomly from air-conditioning drafts. Following my Sensor Troubleshooting Journal (8.S.4B), I dialed down the PIR sensitivity potentiometer, added a 500 ms debounce check in code, and calibrated detection cleanly to 2.0 m (8.S.2B).",
+        s9:"Peer evaluation (8.S.1B) highlighted the seamless integration of the Fresnel lens into the flower stamen and reliable 2 m wake-up glow. Adding a servo motor to physically open the petals on approach would be an exciting v3 upgrade.",
+        r_s:"Diagrammed the PIR Fresnel lens and pyroelectric element explaining how infrared body-heat gradients trigger a digital HIGH pulse (8.S.2A).",
+        r_t:"Wrote and annotated micro:bit MakeCode logic with digital pin polling and debounce filtering (8.S.2C).",
+        r_e:"Concealed the PIR sensor, LED wiring, micro:bit, and battery pack cleanly inside the stem and weighted flower pot.",
+        r_a:"Designed a 6-petal coral-and-gold botanical sculpture with frosted light diffusion in the flower center (8.S.3A).",
+        r_m:"Calibrated detection distance across 1.0 m, 2.0 m, and 3.0 m intervals and programmed a 5-second glow timer (8.S.2B).",
+        r_l:"Diagnosing and eliminating false IR triggers through potentiometer tuning and code debouncing demonstrated systematic engineering grit (8.S.4B)."
+      }},
+    {id:"y8_p3",g:"Y8",t:"Y8 Project 3 · E-Textile Fabric Book – My Secret Light Page / 电子织物秘密发光书页",
+      st:["8.S.1C Component return","8.S.3B 4–6 photo collage","8.S.4A Flat copper tape circuit","8.S.4B Circuit troubleshooting log"],
+      m:["S: Finger pressure bridges copper tape gap to close LED circuit","T: Adhesive copper tape traces & coin-cell battery integration","E: Calibrating switch gap so it triggers on press without shorting","A: Felt layering, clean geometric shapes (star/heart/flower) & color","M: Measuring 20cm × 20cm page layout & exact gap alignment","L: Precision felt cutting, wrinkle-free copper taping & debugging"],
+      ev:"Recommended Evidence: Process Photo Collage 4–6 Images (8.S.3B), Flat Copper Tape Circuit Photo (8.S.4A), Circuit Troubleshooting Log (8.S.4B).",
+      astar:{
+        s1:"Creating an interactive 20 cm × 20 cm sensory e-textile storybook page ('The Lighthouse Keeper') where pressing the felt lantern star secretly illuminates a hidden warm-white LED through the fabric.",
+        s2:"Conductive adhesive copper tape carries current from a 3V CR2032 coin cell to an LED. Leaving a calibrated 4 mm open break directly beneath a conductive felt star creates a momentary pressure switch that closes only when pressed (8.S.2A).",
+        s3:"1) Page dimensions = 200 × 200 mm with clean 4 mm border stitching; 2) Wrinkle-free copper tape with zero short circuits; 3) LED illuminates consistently when the star is pressed and turns off immediately when released.",
+        s4:"Sketched 3 storybook themes and chose a midnight-blue night sky background with layered yellow felt waves, a red-and-white striped lighthouse, and a tactile golden star switch.",
+        s5:"Step 1: Cut 200 × 200 mm navy base & lighthouse layers -> Step 2: Map copper tape traces on reverse side with 4 mm switch gap -> Step 3: Mount coin-cell holder & LED -> Step 4: Test continuity -> Step 5: Sew decorative top layer.",
+        s6:"Returned unused copper tape rolls, binned all felt offcuts, stored needles and fabric shears safely, and signed the Component Return Checklist (8.S.1C).",
+        s7:"Burnished copper tape flat with a bone folder so corners had zero wrinkles (8.S.4A), stitched clean applique details, and documented every stage in a 6-photo process collage (8.S.3B).",
+        s8:"In my Troubleshooting Log (8.S.4B), the LED initially failed to light. I tested battery voltage (3.1V OK) and LED polarity (OK), then discovered a non-conductive adhesive layer at a tape overlap; folding the copper tape adhesive-free fixed it immediately.",
+        s9:"The finished page lies completely flat, hides all electronics cleanly, and delights readers when the lighthouse star glows. Adding a second parallel LED for distant stars would expand the storytelling.",
+        r_s:"Applied closed-circuit conductivity and momentary pressure-switch mechanics using copper tape traces and a 3V coin cell (8.S.2A).",
+        r_t:"Fabricated a flat, flexible e-textile circuit with folded continuous copper tape corners and an accessible battery pocket.",
+        r_e:"Calibrated a 4 mm switch gap and foam spacer ring so the felt star closes the circuit under light finger pressure without accidental shorts.",
+        r_a:"Layered high-contrast midnight-blue, crimson, and gold felt shapes with neat hand-stitched applique (8.S.3A/4A).",
+        r_m:"Measured the 200 × 200 mm page grid, aligned the 4 mm switch gap coordinates on front and back layers, and spaced border stitches evenly (8.S.2B).",
+        r_l:"Systematically isolating and fixing the adhesive-barrier fault in the copper tape overlap proved strong troubleshooting persistence (8.S.4B)."
+      }},
+    {id:"y8_p4",g:"Y8",t:"Y8 Project 4 · Arduino + AI Smart Home – Assistive Device / Arduino+AI无障碍智能家居",
+      st:["8.S.1A Electrical safety & breadboard","8.S.1B Group role & leadership","8.S.2A Ultrasonic & decision tree","8.S.2B Threshold (<30cm) & timing","8.S.2C Arduino C++ debugging","8.S.3A Disability user persona","8.S.3B User testing & v1–v3","8.S.4A Cardboard & wiring craft","8.S.4B Debugging & v1→v3"],
+      m:["S: Ultrasonic sound-wave echo (distance = duration × 0.034 / 2) & sensors","T: Arduino C++ programming, sensors, servos & AI decision trees","E: Breadboard prototyping, mounting components & power management","A: High-contrast accessible cardboard home architecture & UX","M: Distance thresholds (<30cm) & timing delays (delay(10000) = 10s)","L: Arduino coding, sensor wiring, cardboard fabrication & iteration"],
+      ev:"Recommended Evidence: Safe Breadboard Photo (8.S.1A), Group Role Form (8.S.1B), Ultrasonic & Decision Tree Diagram (8.S.2A), User Persona (8.S.3A), v1→v2→v3 Photos (8.S.4B).",
+      astar:{
+        s1:"User Persona (8.S.3A): Maria (72) lives with severe hand arthritis and low vision, making small door latches and light switches painful and hard to see. Constraint: Build an assistive Arduino + AI cardboard home prototype that opens the front door and illuminates the entryway hands-free.",
+        s2:"The HC-SR04 ultrasonic sensor emits 40 kHz sound pulses and measures echo return time to compute distance = duration * 0.034 / 2. Our AI decision tree evaluates: IF distance < 30 cm -> swing servo door to 90° AND turn on high-contrast entryway LED for 10 seconds (8.S.2A).",
+        s3:"1) Door opens smoothly to 90° within 0.5 s when user approaches < 30 cm; 2) Entryway LED stays lit for delay(10000) = 10 s; 3) Neat color-coded breadboard wiring with zero exposed conductors (8.S.1A).",
+        s4:"Brainstormed 4 assistive concepts (clap-activated lamp, rain-closing window, pill reminder, ultrasonic auto-door + timed entryway light). Selected the auto-door + timed light because it solves both grip pain and low-vision navigation simultaneously.",
+        s5:"Group Roles (8.S.1B): I coded/calibrated the ultrasonic sensor and servo logic while my partner engineered the cardboard house structure. Sequence: Breadboard test -> C++ threshold coding -> Cardboard mounting -> User testing v1→v3.",
+        s6:"Handled the Arduino Uno by its edges, disconnected 5V USB power before changing breadboard jumper wires, verified GND/5V rails to prevent shorts, and organized shared sensor bins (8.S.1A/1C).",
+        s7:"Constructed a sturdy 350 × 280 × 260 mm cardboard house with straight mitered walls, mounted the ultrasonic sensor at 150 mm doorway height, routed tidy color-coded wires, and wrote clean commented Arduino C++ code (8.S.2C/4A).",
+        s8:"Debugging & Iterations (8.S.4B): In v1, my code failed to compile due to a 'digitialWrite' typo—fixed syntax and verified on Serial Monitor. In v2, the door closed too fast during classmate user testing; in v3, I calibrated threshold to < 30 cm and extended delay(10000) for a safe 10-second entry window.",
+        s9:"User testing confirmed hands-free entry with clear high-contrast yellow doorframe trim for low-vision accessibility. In v4, I would add a gentle piezo chime so deaf-blind users also receive tactile/audio confirmation.",
+        r_s:"Applied ultrasonic echolocation physics (distance = duration * 0.034 / 2) and rule-based AI decision tree logic (8.S.2A).",
+        r_t:"Wrote, compiled, and debugged text-based Arduino C++ code integrating HC-SR04 ultrasonic input, SG90 servo output, and LED lighting (8.S.2C).",
+        r_e:"Engineered a tidy breadboard circuit, rigid servo door linkage, and reinforced cardboard roof supports across v1→v3 (8.S.4A).",
+        r_a:"Designed high-contrast yellow-and-charcoal architectural trim tailored to low-vision user ergonomics (8.S.3A).",
+        r_m:"Tested 20 cm, 30 cm, and 40 cm sensor thresholds to select < 30 cm and calculated delay(10000) = 10,000 ms for safe doorway transit (8.S.2B).",
+        r_l:"Debugging C++ syntax errors, organizing safe breadboard wiring, and iterating from classmate user feedback demonstrated full Year 8 mastery (8.S.4B)."
+      }}
+  ];
+
+  function buildBandWagoll(proj, band) {
+    const a = proj.astar;
+    const isG8 = proj.g === "Y8";
+    const shortTitle = proj.t.split("·")[1]?.split("/")[0]?.trim() || proj.t;
+    const stdPrefix = isG8 ? "8.S" : "7.S";
+    if (band === "A*") return a;
+    if (band === "A") {
+      return {
+        s1: `[Band A · Meets ${stdPrefix}.3] ${a.s1.split(".")[0]}. Our goal was to build a functional, user-friendly prototype that meets the core class design brief.`,
+        s2: `[Band A · Meets ${stdPrefix}.2A] ${a.s2.split(".")[0]}. We applied the key ${isG8 ? "sensor/circuit and threshold" : "science and measurement"} concepts from class to make the project work reliably.`,
+        s3: `1) Prototype matches the main target dimensions; 2) ${isG8 ? "Code and sensor trigger consistently during testing" : "Materials and circuits hold together cleanly"}; 3) Neat, user-friendly finish.`,
+        s4: `Sketched two design ideas for ${shortTitle} and chose the stronger option because it was easier to build accurately and worked better for the user (${stdPrefix}.3A).`,
+        s5: `Followed the project steps in logical order: first prepared materials and ${isG8 ? "tested the circuit/code on the breadboard/micro:bit" : "measured and tested components"}, then assembled and decorated the final build (${stdPrefix}.2C).`,
+        s6: `Followed all ${isG8 ? "electrical and component handling" : "workshop tool and material"} safety rules with minimal reminders and cleaned up my workspace at the end of each lesson (${stdPrefix}.1A/1C).`,
+        s7: `Built ${shortTitle} carefully with good craftsmanship and minor imperfections (${stdPrefix}.4A). ${isG8 ? "Modified the example code so the inputs and outputs functioned properly." : "Completed all assembly steps neatly."}`,
+        s8: `During testing, our first version needed an adjustment (${isG8 ? "calibrated the sensor threshold and fixed a small wiring/code issue" : "adjusted spacing/tension so it worked smoothly"}). Version 2 worked reliably (${stdPrefix}.4B).`,
+        s9: `What worked well: the main function worked consistently. What was difficult: getting the ${isG8 ? "sensor sensitivity and neat wiring" : "exact measurements and clean finish"} right. Next time I would refine the outer appearance further (${stdPrefix}.3C).`,
+        r_s: `Explained the main science principle behind ${shortTitle} and showed how it works in our prototype (${stdPrefix}.2A).`,
+        r_t: `Used ${isG8 ? "micro:bit/Arduino coding and electronic components" : "workshop tools and digital/craft techniques"} accurately with minimal support.`,
+        r_e: `Assembled the structure and connections securely so the prototype functioned as intended.`,
+        r_a: `Made intentional color and shape choices to make ${shortTitle} appealing and clear for the user (${stdPrefix}.3A).`,
+        r_m: `Applied accurate measurements and ${isG8 ? "threshold/timing values" : "proportions/probability"} with most calculations correct (${stdPrefix}.2B).`,
+        r_l: `Completed the project with care and tried a second approach when challenges came up (${stdPrefix}.4A/B).`
+      };
+    }
+    if (band === "B") {
+      return {
+        s1: `[Band B · Approaching ${stdPrefix}.3] We are making ${shortTitle} for a user, though some design constraints were not fully listed.`,
+        s2: `[Band B · Approaching ${stdPrefix}.2A] It uses ${isG8 ? "a sensor and a circuit with code" : "a simple circuit / chemical change"}, though I need help explaining the full scientific reason.`,
+        s3: `1) Make it the right size; 2) Make sure the ${isG8 ? "LED/servo turns on" : "main part works"}; 3) Make it look neat.`,
+        s4: `I drew one main sketch for ${shortTitle} based on the teacher's example and added a few color changes (${stdPrefix}.3A).`,
+        s5: `Gathered materials and started building ${shortTitle}. Needed occasional reminders about which step to do first before ${isG8 ? "wiring/coding" : "final assembly"} (${stdPrefix}.2C).`,
+        s6: `Identified most safety rules and wore safety gear when reminded; cleaned up workspace after prompting (${stdPrefix}.1A/1C).`,
+        s7: `Made ${shortTitle} with some care, though there are noticeable imperfections (${isG8 ? "messy jumper wires / minor code errors adjusted with help" : "uneven edges / minor gaps"}) (${stdPrefix}.4A).`,
+        s8: `It didn't work the first time because ${isG8 ? "the sensor threshold or wire was loose" : "something was misaligned"}. After teacher guidance, I fixed it so it mostly works (${stdPrefix}.4B).`,
+        s9: `The basic project works, but the finish could be neater. Next time I should measure more carefully and manage my time better (${stdPrefix}.3C).`,
+        r_s: `Identified the basic science topic (${isG8 ? "sensors/circuits" : "circuits/oxidation/sound"}), though explanation is incomplete (${stdPrefix}.2A).`,
+        r_t: `Followed code/tool examples with some support to get basic functionality (${stdPrefix}.2C).`,
+        r_e: `Put the parts together, though some joints or connections needed reinforcement.`,
+        r_a: `Chose simple colors and shapes; needed prompting to think about user experience.`,
+        r_m: `Measured parts with minor errors that needed checking (${stdPrefix}.2B).`,
+        r_l: `Completed the project with encouragement when facing technical difficulties (${stdPrefix}.4B).`
+      };
+    }
+    if (band === "C") {
+      return {
+        s1: `[Band C · Beginning ${stdPrefix}.3] Making ${shortTitle} because it is our class assignment.`,
+        s2: `[Band C · Beginning ${stdPrefix}.2A] ${isG8 ? "The Arduino/micro:bit makes the light turn on." : "The battery or dye makes it work."} (Needs clearer scientific explanation).`,
+        s3: `Make it work and finish on time.`,
+        s4: `Copied the basic example shown on the board without exploring original ideas (${stdPrefix}.3A).`,
+        s5: `Started building before finishing the plan; steps were out of order and needed frequent teacher intervention (${stdPrefix}.2C).`,
+        s6: `Needed frequent reminders to follow ${isG8 ? "electrical/component" : "tool/dye"} safety rules and clean up materials at the end of class (${stdPrefix}.1A/1C).`,
+        s7: `Prototype was rushed with inconsistent craftsmanship (${isG8 ? "unorganized wiring and code errors requiring help to run" : "loose assembly / messy finish"}) (${stdPrefix}.4A).`,
+        s8: `When it stopped working, I wasn't sure why and needed help to troubleshoot (${stdPrefix}.4B).`,
+        s9: `It was hard to finish. Next time I want to make it better (${stdPrefix}.3C).`,
+        r_s: `Attempted to name a science concept, but connection to the project is unclear (${stdPrefix}.2A).`,
+        r_t: `Used basic tools/code only with step-by-step assistance.`,
+        r_e: `Basic structure assembled loosely; struggled with alignment.`,
+        r_a: `Minimal attention to color, shape, or user needs.`,
+        r_m: `Significant measurement/threshold errors; did not double-check numbers (${stdPrefix}.2B).`,
+        r_l: `Work is rushed; tended to stop trying when difficulty increased (${stdPrefix}.4A/B).`
+      };
+    }
+    if (band === "D") {
+      return {
+        s1: `[Band D · Not Yet] ${shortTitle}.`, s2: `I don't know the science concept yet.`, s3: ``,
+        s4: `No original sketch or design plan completed.`, s5: `Could not order the steps independently; required constant 1-to-1 support.`,
+        s6: `Did not follow safety or workspace cleanup routines independently.`, s7: `Prototype incomplete; requires substantial support to use tools/components safely.`,
+        s8: `Did not test or iterate on the design.`, s9: `No reflection completed.`,
+        r_s: `Not yet demonstrated independently.`, r_t: ``, r_e: ``, r_a: ``, r_m: `Basic measurements not applied.`,
+        r_l: `Gave up quickly when challenges arose; requires substantial support.`
+      };
+    }
+    return {s1:`[Band E · Incomplete / No Evidence Submitted]`,s2:``,s3:``,s4:``,s5:``,s6:``,s7:``,s8:``,s9:``,r_s:``,r_t:``,r_e:``,r_a:``,r_m:``,r_l:``};
+  }
+
+  const S=[
+    ["s1","1. Empathize & User Need / 需求洞察与同理心","Who is the user, what challenge do they face, and what are your design constraints?"],
+    ["s2","2. Scientific & Math Inquiry / 科学原理与数学规律","What science concepts (circuits, oxidation, PIR, ultrasonic) and math measurements govern your design?"],
+    ["s3","3. Design Specifications / 设计指标与成功标准","List 3 measurable specifications (dimensions in mm, thresholds, safety, aesthetics) your prototype must meet."],
+    ["s4","4. Ideation & Concept Sketches / 头脑风暴与草图方案","Compare multiple design ideas and justify why you selected your chosen concept."],
+    ["s5","5. Technical Plan & Sequential Logic / 加工计划与顺序逻辑","Outline your materials, tools, and step-by-step sequence (why must steps happen in this order?)."],
+    ["s6","6. Safety Protocol & Workspace Care / 安全规范与工位整理","What tool/dye/electrical safety rules did you follow, and how did you organize shared materials?"],
+    ["s7","7. Prototype Fabrication & Coding / 原型制作与编程实现","Document your build/coding process and show attention to craftsmanship details."],
+    ["s8","8. Testing, Troubleshooting & Iteration (v1 → v2) / 测试排查与迭代优化","What failed or needed adjustment during testing, and what specific changes did you make in v2?"],
+    ["s9","9. Final Evaluation & User-Centered Reflection / 最终评估与反思建议","What worked well, what was difficult, and how would you improve it further for the user?"]
+  ];
+  const RF=[
+    ["r_s","S · Science / 科学原理 (7.S.2A / 8.S.2A)"],["r_t","T · Technology & Coding / 技术与编程 (7.S.2C / 8.S.2C)"],["r_e","E · Engineering / 工程结构与电路"],
+    ["r_a","A · Art & User Experience / 艺术审美与用户体验 (S.3A)"],["r_m","M · Math / 数学测量与阈值 (7.S.2B / 8.S.2B)"],["r_l","Labor-Tech Craftsmanship & Persistence / 工匠精神与毅力 (S.4A/B)"]
+  ];
+
+  let photos=[],subs={},actCls="ALL",actKey=null;
+  try{subs=JSON.parse(stg.get("ykps_subs")||"{}")}catch(e){}
+  const $=id=>document.getElementById(id);
+  const toast=m=>{const t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(t._t);t._t=setTimeout(()=>t.style.display="none",3500)};
+
+  Object.keys(R).forEach(c=>{
+    const o=document.createElement("option");o.value=c;
+    o.textContent=c==="TRIAL_TEST" ? "TRIAL_TEST (Sandbox · Test Uploads)" : `${c} (${RAW_ROSTERS[c].length} students)`;
+    $("sCls").appendChild(o);
+  });
+  P.forEach(p=>{const o=document.createElement("option");o.value=p.id;o.textContent=p.t;$("sPrj").appendChild(o)});
+
+  function loadWagollForBand(band){
+    $("selBand").value=band;
+    const p=P.find(x=>x.id===$("sPrj").value)||P[0];
+    const w=buildBandWagoll(p,band);
+    S.forEach(x=>{$(x[0]).value=w[x[0]]||""});
+    RF.forEach(x=>{$(x[0]).value=w[x[0]]||""});
+    save();
+    toast(`⭐ Loaded Band ${band} WAGOLL for ${p.g} (${p.t.split("·")[1]?.split("/")[0]?.trim()})`);
+  }
+
+  function fillStu(){
+    const c=$("sCls").value;$("sStu").innerHTML="";
+    (R[c]||[]).forEach(n=>{const o=document.createElement("option");o.value=n;o.textContent=n;$("sStu").appendChild(o)});
+    const curP=P.find(x=>x.id===$("sPrj").value);
+    if(c==="G8_STEAM"&&curP&&curP.g==="Y7"){$("sPrj").value="y8_p1";renderMeta()}
+    else if(c!=="G8_STEAM"&&c!=="TRIAL_TEST"&&curP&&curP.g==="Y8"){$("sPrj").value="y7_p1";renderMeta()}
+  }
+  function renderMeta(){
+    const p=P.find(x=>x.id===$("sPrj").value)||P[0];
+    $("pMeta").innerHTML=p.st.map(x=>`<span class="sbadge">${x}</span>`).join("")
+      +`<div class="spills">${p.m.map(x=>`<div class="sp">${x}</div>`).join("")}</div>`
+      +`<div class="evbox">📋 <strong>${p.ev}</strong></div>`;
+  }
+  $("sCls").onchange=()=>{fillStu();save()};
+  $("sStu").onchange=save;
+  $("sPrj").onchange=()=>{renderMeta();save()};
+  fillStu();renderMeta();
+
+  const selStageFilter=$("selStageFilter");
+  S.forEach(x=>{
+    const opt=document.createElement("option");
+    opt.value=x[0];opt.textContent=x[1];
+    selStageFilter.appendChild(opt);
+
+    const d=document.createElement("div");d.className="st stage-item";d.dataset.sid=x[0];
+    d.innerHTML=`<strong style="color:var(--ykp-green-dark);font-size:13px">${x[1]}</strong><div style="font-size:12px;color:var(--mut);margin:3px 0 6px">${x[2]}</div><textarea id="${x[0]}"></textarea>`;
+    $("stBox").appendChild(d);
+  });
+
+  function applyStageFilter(){
+    const val=selStageFilter.value;
+    document.querySelectorAll(".stage-item").forEach(el=>{
+      el.classList.toggle("hidden", val!=="ALL" && el.dataset.sid!==val);
+    });
+  }
+  selStageFilter.onchange=applyStageFilter;
+  $("btnPrevSt").onclick=()=>{
+    const cur=selStageFilter.value;
+    if(cur==="ALL"){selStageFilter.value="s1";}
+    else{const i=S.findIndex(x=>x[0]===cur);selStageFilter.value=i>0?S[i-1][0]:"ALL";}
+    applyStageFilter();
+  };
+  $("btnNextSt").onclick=()=>{
+    const cur=selStageFilter.value;
+    if(cur==="ALL"){selStageFilter.value="s1";}
+    else{const i=S.findIndex(x=>x[0]===cur);selStageFilter.value=i<S.length-1?S[i+1][0]:"ALL";}
+    applyStageFilter();
+  };
+
+  const selRefFilter=$("selRefFilter");
+  RF.forEach(x=>{
+    const opt=document.createElement("option");
+    opt.value=x[0];opt.textContent=x[1];
+    selRefFilter.appendChild(opt);
+
+    const d=document.createElement("div");d.className="st ref-item";d.dataset.rid=x[0];d.style.margin=0;
+    d.innerHTML=`<label class="lbl" for="${x[0]}">${x[1]}</label><textarea id="${x[0]}"></textarea>`;
+    $("rfBox").appendChild(d);
+  });
+  selRefFilter.onchange=()=>{
+    const val=selRefFilter.value;
+    document.querySelectorAll(".ref-item").forEach(el=>{
+      el.classList.toggle("hidden", val!=="ALL" && el.dataset.rid!==val);
+    });
+  };
+
+  const PROG_ROWS=[
+    {strand:"STRAND 1: TOOL SAFETY & TEAMWORK · 工具安全与团队协作 (S.1)"},
+    {key:"S.1A",code:"S.1A",name:"Safety Rules · 工具安全规范",g6:"Identify & follow basic safety rules for hand tools (scissors, saws, needles, measuring tools).",g7:"Follow advanced safety rules for specialized tools (dye materials, 3D modeling software, recording equipment, sewing tools).",g8:"Follow advanced safety rules for complex tools & electronics (Arduino components, wiring, sensors, soldering)."},
+    {key:"S.1B",code:"S.1B",name:"Teamwork · 团队协作与领导力",g6:"Work effectively as part of a team, sharing tasks, listening to others, and contributing equally.",g7:"Share tasks, listen, and contribute equally to group projects with growing leadership & conflict mediation.",g8:"Demonstrate full leadership, facilitate group discussion, respect diverse perspectives & guide problem-solving."},
+    {key:"S.1C",code:"S.1C",name:"Workspace · 工位安全与整理",g6:"Maintain a safe and organized workspace, cleaning up materials and tools after each session.",g7:"Clean up materials and tools after each session with increasing independence & organize shared materials.",g8:"Maintain workspace with full independence and proactive attention to shared component resources."},
+    {strand:"STRAND 2: STEM & CODING · 科学、数学与逻辑编程 (S.2)"},
+    {key:"S.2A",code:"S.2A",name:"Science Concepts · 科学原理应用",g6:"Identify & explain simple scientific concepts (circuits, energy, properties of materials).",g7:"Explain scientific concepts in projects (oxidation chemistry, pressure circuits, sound waves, thermal insulation).",g8:"Explain advanced scientific concepts (PIR infrared sensors, ultrasonic waves, voltage dividers, AI decision trees)."},
+    {key:"S.2B",code:"S.2B",name:"Math Skills · 数学测量与计算",g6:"Apply basic math skills (measuring, counting, calculating perimeter and area) accurately.",g7:"Apply math skills including perimeter, area, volume, millimeter dimensions, and probability (dice poetry).",g8:"Apply advanced math in coding contexts: sensor distance thresholds (<30cm) and timing (delay(10000))."},
+    {key:"S.2C",code:"S.2C",name:"Thinking / Coding · 逻辑思维与编程",g6:"Identify and apply basic coding skills (e.g., C++ in Arduino) to complete a project accurately.",g7:"Follow multi-step instructions, apply sequential logic & algorithmic thinking (probability, folding patterns, CAD order).",g8:"Apply text-based coding (Arduino / micro:bit); read, modify, debug, and optimize code independently."},
+    {strand:"STRAND 3: CREATIVITY & DESIGN THINKING · 创意与设计思维 (S.3)"},
+    {key:"S.3A",code:"S.3A",name:"Creative Ideas · 创意构思与用户体验",g6:"Generate original ideas and make thoughtful choices about color, shape, and design.",g7:"Make thoughtful choices about color psychology, shape, design, and user experience.",g8:"Design with empathy for diverse user needs and specific user personas (e.g., people with disabilities)."},
+    {key:"S.3B",code:"S.3B",name:"Documentation · 设计过程记录",g6:"Document the design process using sketches, notes, or photos to show thinking and progress.",g7:"Document process using sketches, notes, photos, and user feedback to show progress.",g8:"Document process thoroughly with design journals, user testing feedback, and v1→v2→v3 iterations."},
+    {key:"S.3C",code:"S.3C",name:"Reflection · 过程反思与改进",g6:"Reflect honestly on what worked, what was difficult, and what could be improved.",g7:"Reflect honestly with specific, detailed suggestions for improvement and clear reasoning.",g8:"Connect reflection to user-centered reasoning, explaining how improvements better serve the end user."},
+    {strand:"STRAND 4: CRAFTSMANSHIP & PERSISTENCE · 工匠精神与毅力 (S.4)"},
+    {key:"S.4A",code:"S.4A",name:"Craftsmanship · 工艺品质与细节",g6:"Complete projects with care and attention to detail, showing pride in workmanship.",g7:"Show pride in workmanship and user-centered design (neat stitches, crisp dye lines, aligned 3D renders).",g8:"Demonstrate professional-quality polished execution (neat cardboard joints, clean copper tape & wiring)."},
+    {key:"S.4B",code:"S.4B",name:"Persistence · 毅力与问题排查",g6:"Show persistence and effort when facing challenges, trying different strategies rather than giving up.",g7:"Demonstrate resilience, analyze failures, and learn from mistakes across circuit/dye/recording retakes.",g8:"Iterate systematically based on testing, debugging logs, sensor calibration, and user feedback."}
+  ];
+
+  const Y7_ROWS=[
+    {strand:"STRAND 1: TOOL SAFETY & TEAMWORK · 工具安全与团队协作 (7.S.1)"},
+    {key:"S.1A",code:"7.S.1A",name:"Safety Rules · 工具安全规范",desc:"Follow safety rules for specialized tools (dyes, 3D software, recording gear, sewing tools) & use them responsibly.",
+      as:"Consistently follows all safety rules independently & educates peers; uses specialized tools with precision & care; anticipates hazards proactively.",
+      a:"Follows all safety rules consistently with minimal reminders; uses specialized tools correctly & responsibly; understands protocols for new equipment.",
+      b:"Identifies most safety rules & follows them with occasional reminders; uses tools mostly correctly; may need guidance on specialized gear.",
+      c:"Identifies some safety rules; needs frequent reminders; attempts to use tools but does not always use them correctly or responsibly.",
+      d:"Has not yet demonstrated safe tool use independently; requires substantial support to identify and follow safety rules.",
+      e:"No evidence submitted or insufficient participation to assess tool safety."},
+    {key:"S.1B",code:"7.S.1B",name:"Teamwork · 团队协作与领导力",desc:"Work effectively in a team, share tasks fairly, listen to teammates, and show growing leadership.",
+      as:"Actively contributes to teamwork; listens, shares tasks fairly, helps teammates, takes leadership when needed & mediates conflicts constructively.",
+      a:"Contributes to teamwork; listens to others, shares tasks, works well with teammates & participates in group decision-making.",
+      b:"Contributes to teamwork with some guidance; may need reminders to share tasks or listen to others; participates when prompted.",
+      c:"Attempts to work in a team but struggles to share tasks or listen to others; needs support to collaborate effectively.",
+      d:"Struggles significantly with collaboration; requires substantial support to work in a team.",
+      e:"No evidence submitted or insufficient group participation to assess teamwork."},
+    {key:"S.1C",code:"7.S.1C",name:"Workspace Care · 工位安全与整理",desc:"Maintain a safe, clean, and organized workspace and return shared tools after each session.",
+      as:"Maintains a clean, organized workspace consistently without reminders; proactively organizes shared materials & helps others keep order.",
+      a:"Maintains a clean, organized workspace with few reminders; takes responsibility for personal materials & joins cleanup routines.",
+      b:"Maintains workspace with some reminders needed; may need prompting to complete cleanup tasks.",
+      c:"Needs frequent reminders to clean and organize workspace; cleanup is incomplete without guidance.",
+      d:"Has not yet demonstrated workspace cleanup independently; requires additional support to maintain order.",
+      e:"No before/after workspace evidence submitted."},
+    {strand:"STRAND 2: STEM CONCEPTS · 科学、数学与逻辑思维 (7.S.2)"},
+    {key:"S.2A",code:"7.S.2A",name:"Science Concepts · 科学原理应用",desc:"Identify and explain scientific concepts in projects (oxidation chemistry, pressure circuits, sound waves, thermal insulation).",
+      as:"Identifies & explains scientific concepts clearly and accurately; gives multiple examples, connects to project & hypothesizes before testing.",
+      a:"Identifies & explains scientific concepts; gives some examples, connects to project & shows understanding through application.",
+      b:"Identifies scientific concepts, but explanation is incomplete or connections are unclear; needs prompting to explain reasoning.",
+      c:"Attempts to identify scientific concepts, but explanation is unclear or inaccurate; relies on examples from others.",
+      d:"Has not yet demonstrated this standard independently; requires additional support to identify and explain science concepts.",
+      e:"No scientific explanation or diagram submitted."},
+    {key:"S.2B",code:"7.S.2B",name:"Math Skills · 数学测量与概率",desc:"Apply math skills accurately (measuring in mm, perimeter, area, volume, symmetry & dice probability).",
+      as:"Applies math skills independently & accurately; calculations/measurements are precise; explains mathematical reasoning behind design choices.",
+      a:"Applies math skills with minimal support; most calculations & measurements are correct; understands relevant math concepts.",
+      b:"Applies math skills with some support; calculations or measurements have minor errors; needs guidance to fix mistakes.",
+      c:"Attempts to apply math skills, but errors are significant; requires prompting to check work.",
+      d:"Has not yet demonstrated basic math application independently; requires additional support.",
+      e:"No measurements, probability worksheet, or calculations submitted."},
+    {key:"S.2C",code:"7.S.2C",name:"Sequential & Algorithmic Thinking · 顺序与算法逻辑",desc:"Follow multi-step instructions in logical order, predict patterns, and optimize build sequences (e.g. test before sewing).",
+      as:"Independently interprets complex multi-step instructions; anticipates next steps, optimizes order for efficiency & predicts pattern outcomes accurately.",
+      a:"Follows multi-step instructions with minimal support; applies sequential logic correctly & completes project in logical order.",
+      b:"Follows most steps with occasional guidance; may need reminders about step order; makes minor patterning errors corrected with prompting.",
+      c:"Struggles with sequence & needs frequent intervention; steps are out of order or unclear; significant patterning errors.",
+      d:"Requires substantial support to follow sequential instructions; cannot independently order steps or apply logical thinking.",
+      e:"No build sequence or pattern prediction evidence submitted."},
+    {strand:"STRAND 3: CREATIVITY & DESIGN THINKING · 创意与设计思维 (7.S.3)"},
+    {key:"S.3A",code:"7.S.3A",name:"Creative Ideas · 创意构思与用户体验",desc:"Generate original ideas and make thoughtful choices about color psychology, shape, design, and user experience.",
+      as:"Generates multiple original ideas; choices are intentional & creative; considers user needs & aesthetic impact; iterates from feedback.",
+      a:"Generates original ideas; design choices show creativity and intention; considers visual and functional aspects of design.",
+      b:"Generates ideas with some originality; choices may be simple or imitative; needs prompting to consider multiple possibilities.",
+      c:"Attempts to generate ideas, but they are unclear or heavily dependent on examples; struggles to develop original concepts.",
+      d:"Has not yet demonstrated original idea generation independently; requires additional support.",
+      e:"No concept sketches or creative rationale submitted."},
+    {key:"S.3B",code:"7.S.3B",name:"Documentation · 设计过程记录",desc:"Document the design process using sketches, notes, and photos to show thinking, progress, and user feedback.",
+      as:"Documents process thoroughly; includes detailed sketches, clear notes, evidence of testing/improvement & user feedback iterations.",
+      a:"Documents process; includes sketches and notes with some detail; shows clear evidence of design progression.",
+      b:"Documents process, but records may be incomplete or unclear; includes only basic sketches or brief notes.",
+      c:"Attempts to document, but notes are minimal or unclear; documentation lacks detail.",
+      d:"Has not yet documented the design process independently; requires additional support.",
+      e:"No process photos, sketches, or logbook notes submitted."},
+    {key:"S.3C",code:"7.S.3C",name:"Reflection · 过程反思与改进建议",desc:"Reflect honestly on what worked well, what was difficult, and specific ways to improve the project.",
+      as:"Reflects in depth; identifies successes, challenges & specific improvements with clear reasoning; considers user perspective & future uses.",
+      a:"Reflects on process; identifies successes, challenges & possible improvements; shows awareness of personal growth.",
+      b:"Reflects, but may miss key aspects or give vague suggestions; needs guidance to identify specific improvements.",
+      c:"Attempts to reflect, but comments are unclear or superficial; identifies only obvious successes or failures.",
+      d:"Has not yet demonstrated meaningful reflection independently; requires additional support.",
+      e:"No written or recorded reflection submitted."},
+    {strand:"STRAND 4: CRAFTSMANSHIP & PERSISTENCE · 工匠精神与毅力 (7.S.4)"},
+    {key:"S.4A",code:"7.S.4A",name:"Craftsmanship · 工艺品质与细节",desc:"Complete projects with care and attention to detail (neat stitching, crisp dye lines, aligned 3D renders).",
+      as:"Completes projects with exceptional care; attention to every detail; polished, professional finish & thoughtful user-centered design.",
+      a:"Completes projects with care; shows attention to most details; craftsmanship is good with only minor imperfections.",
+      b:"Completes projects with some care; work has noticeable imperfections; needs reminders to attend to details.",
+      c:"Completes projects, but work is rushed or messy; lacks attention to detail; craftsmanship is inconsistent.",
+      d:"Does not complete projects or work shows significant lack of effort.",
+      e:"No final prototype photos or craftsmanship evidence submitted."},
+    {key:"S.4B",code:"7.S.4B",name:"Persistence · 毅力与问题排查",desc:"Show resilience when facing challenges, troubleshoot mistakes, and try different strategies rather than giving up.",
+      as:"Shows strong persistence; actively seeks solutions, tries multiple strategies when stuck, learns from mistakes & maintains positive attitude.",
+      a:"Shows persistence; tries different approaches when challenges arise; demonstrates resilience when facing difficulty.",
+      b:"Shows some persistence, but needs encouragement to continue when stuck; attempts basic problem-solving.",
+      c:"Shows limited persistence; begins trying a strategy but gives up when difficulty increases; needs frequent encouragement.",
+      d:"Does not show persistence when facing challenges; gives up quickly or avoids tasks when difficulties arise.",
+      e:"No troubleshooting or iteration evidence submitted."}
+  ];
+
+  const Y8_ROWS=[
+    {strand:"STRAND 1: TOOL SAFETY & TEAMWORK · 工具安全与团队协作 (8.S.1)"},
+    {key:"S.1A",code:"8.S.1A",name:"Electrical & Tool Safety · 电子与设备安全",desc:"Follow safety rules for complex tools & electronics (Arduino boards, breadboard wiring, sensors, soldering).",
+      as:"Follows all safety rules independently & actively reminds others; handles complex electronics with precision & understands electrical safety.",
+      a:"Follows all safety rules consistently with minimal reminders; uses complex tools responsibly & follows electronics/wiring safety protocols.",
+      b:"Identifies most safety rules & follows with occasional reminders; uses tools mostly correctly; needs guidance caring for electronic parts.",
+      c:"Identifies some safety rules; needs frequent reminders; does not always handle electronic tools/components responsibly.",
+      d:"Has not yet demonstrated electrical/tool safety independently; requires substantial support.",
+      e:"No electrical safety checklist or wiring evidence submitted."},
+    {key:"S.1B",code:"8.S.1B",name:"Teamwork & Leadership · 团队协作与领导力",desc:"Share tasks equally, listen to diverse ideas, and demonstrate leadership in group problem-solving.",
+      as:"Actively contributes; listens, shares tasks fairly, helps teammates, takes leadership, facilitates group discussion & guides problem-solving.",
+      a:"Contributes to teamwork; listens, shares tasks well, participates in group decision-making & shares responsibilities.",
+      b:"Contributes with some guidance; needs reminders to share tasks or listen; participates when prompted.",
+      c:"Attempts teamwork but struggles to share tasks or listen to others; needs support to collaborate effectively.",
+      d:"Struggles significantly with collaboration; requires substantial support to work in a group.",
+      e:"No group role or peer collaboration evidence submitted."},
+    {key:"S.1C",code:"8.S.1C",name:"Workspace & Shared Resources · 工位与公共资源管理",desc:"Maintain a clean workspace with full independence and organize shared electronic/craft resources.",
+      as:"Maintains spotless workspace consistently without reminders; proactively organizes shared component trays & helps others keep order.",
+      a:"Maintains clean workspace with few reminders; takes responsibility for personal materials & helps clean shared spaces.",
+      b:"Maintains workspace with some reminders; may need prompting to finish cleanup or return small components.",
+      c:"Needs frequent reminders to clean workspace; cleanup is incomplete without guidance; lacks care for shared resources.",
+      d:"Has not yet demonstrated workspace organization independently; requires additional support.",
+      e:"No workspace cleanup or component return evidence submitted."},
+    {strand:"STRAND 2: STEM & CODING · 科学、数学与编程 (8.S.2)"},
+    {key:"S.2A",code:"8.S.2A",name:"Science Concepts · 传感器与电路科学",desc:"Explain advanced scientific concepts (voltage dividers, PIR infrared detection, ultrasonic sound waves, AI decision trees).",
+      as:"Explains scientific concepts clearly & accurately; gives multiple examples, connects to project, hypothesizes & designs tests.",
+      a:"Identifies & explains scientific concepts; gives examples, connects to project & demonstrates understanding through application.",
+      b:"Identifies scientific concepts, but explanation is incomplete or connections are unclear; needs prompting to explain.",
+      c:"Attempts to identify scientific concepts, but explanation is unclear or inaccurate; relies on examples from others.",
+      d:"Has not yet demonstrated science explanation independently; requires substantial support.",
+      e:"No sensor/circuit science diagram or explanation submitted."},
+    {key:"S.2B",code:"8.S.2B",name:"Math & Thresholds · 数学测量与阈值校准",desc:"Apply advanced math skills (millimeter tolerances, spacer calibration, distance thresholds <30cm & timing delays).",
+      as:"Applies math skills independently & accurately; measurements/thresholds are precise; explains math reasoning & applies to new cases.",
+      a:"Applies math skills with minimal support; most threshold/timing calculations are correct & applied well to the project.",
+      b:"Applies math skills with some support; minor measurement or threshold errors; needs guidance to fix mistakes.",
+      c:"Attempts to apply math skills, but errors are significant; requires prompting to check numbers.",
+      d:"Has not yet demonstrated threshold/measurement math independently; requires substantial support.",
+      e:"No calibration measurements or threshold math submitted."},
+    {key:"S.2C",code:"8.S.2C",name:"Coding & Debugging · 编程与代码调试",desc:"Write, read, modify, and debug Arduino C++ or micro:bit code so sensors and outputs work accurately.",
+      as:"Demonstrates clear programming logic; independently writes, debugs & optimizes code for diverse tasks and explains code clearly.",
+      a:"Applies coding skills with minimal support; code functions correctly, meets requirements & student can modify/debug issues.",
+      b:"Applies coding skills with some support; minor bugs remain or code runs after basic adjustments to teacher examples.",
+      c:"Attempts coding, but significant syntax/logic errors prevent running without heavy teacher intervention.",
+      d:"Requires substantial support to understand code logic or write basic commands.",
+      e:"No working code screenshot, explanation, or debugging log submitted."},
+    {strand:"STRAND 3: CREATIVITY & DESIGN THINKING · 创意与设计思维 (8.S.3)"},
+    {key:"S.3A",code:"8.S.3A",name:"Empathetic Creative Design · 同理心与创意设计",desc:"Generate original ideas considering color, form, user experience, and diverse user needs (e.g. disabilities).",
+      as:"Generates multiple original ideas; choices are intentional & creative; deeply considers diverse user needs & iterates from testing.",
+      a:"Generates original ideas; design choices show creativity and intention; considers visual, functional & user needs.",
+      b:"Generates ideas with some originality; choices are simple or imitative; needs prompting to consider user needs.",
+      c:"Ideas are unclear or heavily copied from examples; struggles to develop original user-centered concepts.",
+      d:"Has not yet demonstrated user-centered creative ideation independently; requires additional support.",
+      e:"No user persona, brainstorm web, or design sketch submitted."},
+    {key:"S.3B",code:"8.S.3B",name:"Iterative Documentation · 迭代过程记录",desc:"Document design thinking using sketches, journals, user testing feedback, and v1 → v2 → v3 version history.",
+      as:"Documents thoroughly; includes detailed sketches, clear notes, user testing feedback & analyzed v1→v3 design iterations.",
+      a:"Documents process; includes sketches, notes & evidence of design progression and user considerations.",
+      b:"Documents process, but records are incomplete or unclear; includes basic sketches or brief notes.",
+      c:"Attempts to document, but notes are minimal or unclear; documentation lacks iteration detail.",
+      d:"Has not yet documented iterations independently; requires additional support.",
+      e:"No design journal, version history, or process photos submitted."},
+    {key:"S.3C",code:"8.S.3C",name:"User-Centered Reflection · 以用户为中心的反思",desc:"Reflect honestly on successes, challenges, and specific improvements grounded in how well the prototype serves the user.",
+      as:"Reflects in depth; identifies successes, challenges & specific improvements with clear user-centered reasoning & broader applications.",
+      a:"Reflects on process; identifies successes, challenges & improvements; shows awareness of personal growth and user needs.",
+      b:"Reflects, but misses key aspects or gives vague suggestions; needs guidance to connect improvements to the user.",
+      c:"Comments are unclear or superficial; identifies only obvious successes or failures.",
+      d:"Has not yet demonstrated meaningful reflection independently; requires additional support.",
+      e:"No user-centered reflection submitted."},
+    {strand:"STRAND 4: CRAFTSMANSHIP & PERSISTENCE · 工匠精神与毅力 (8.S.4)"},
+    {key:"S.4A",code:"8.S.4A",name:"Craftsmanship · 精密工艺与布线品质",desc:"Complete prototypes with care and precision (tidy breadboard wiring, flat copper tape, clean knitting & cardboard joints).",
+      as:"Exceptional care & attention to every detail; polished, professional finish & thoughtful execution that meets user needs.",
+      a:"Completes projects with care; good craftsmanship with minor imperfections; design considers user needs.",
+      b:"Completes projects with some care; noticeable imperfections; needs reminders to attend to construction/wiring neatness.",
+      c:"Work is rushed or messy; lacks attention to detail; wiring or construction craftsmanship is inconsistent.",
+      d:"Does not complete prototype or work shows significant lack of effort.",
+      e:"No final prototype or craftsmanship photo submitted."},
+    {key:"S.4B",code:"8.S.4B",name:"Persistence & Debugging Grit · 毅力与系统排查",desc:"Overcome technical challenges by testing multiple debugging strategies, learning from mistakes, and iterating from feedback.",
+      as:"Shows strong persistence; tries multiple debugging strategies, learns from mistakes, encourages peers & iterates from user feedback.",
+      a:"Shows persistence; tries different debugging approaches when stuck, shows resilience & improves prototype from feedback.",
+      b:"Shows some persistence, but needs encouragement when stuck; makes limited improvements based on feedback.",
+      c:"Shows limited persistence; gives up when coding or circuit difficulty increases; needs frequent encouragement.",
+      d:"Does not show persistence; gives up quickly or avoids debugging challenges.",
+      e:"No troubleshooting or debugging log submitted."}
+  ];
+
+  function renderScaleTable(){
+    const view=$("selScaleView").value;
+    const std=$("selStdFilter").value;
+    if(view==="prog"){
+      const rows=PROG_ROWS.filter(r=> std==="ALL" ? true : r.key===std);
+      $("scaleContent").innerHTML=`<div class="twrap"><table>
+        <thead><tr><th>Individual Standard / 评估标准</th><th>Grade 6 Focus (六年级基础)</th><th>Grade 7 Focus (7.S 七年级应用)</th><th>Grade 8 Focus (8.S 八年级创新)</th></tr></thead>
+        <tbody>${rows.map(r=> r.strand
+          ? `<tr class="strand-hdr"><td colspan="4">${r.strand}</td></tr>`
+          : `<tr><td class="std-col"><span class="std-tag">${r.code}</span> <strong>${r.name}</strong></td><td>${r.g6}</td><td>${r.g7}</td><td>${r.g8}</td></tr>`
+        ).join("")}</tbody>
+      </table></div>`;
+    } else {
+      const src=view==="y7"?Y7_ROWS:Y8_ROWS;
+      const lbl=view==="y7"?"Year 7 (7.S)":"Year 8 (8.S)";
+      const rows=src.filter(r=> std==="ALL" ? true : r.key===std);
+      $("scaleContent").innerHTML=`<div class="twrap"><table>
+        <thead><tr>
+          <th style="min-width:210px">${lbl} Individual Standard &amp; Meaning</th>
+          <th class="band-as">A* (Exceeds / 卓越)</th>
+          <th class="band-a">A (Meets / 优秀)</th>
+          <th class="band-b">B (Approaching / 良好)</th>
+          <th class="band-c">C (Beginning / 起步)</th>
+          <th class="band-d">D (Not Yet / 待提升)</th>
+          <th class="band-e">E (Incomplete / 未完成)</th>
+        </tr></thead>
+        <tbody>${rows.map(r=> r.strand
+          ? `<tr class="strand-hdr"><td colspan="7">${r.strand}</td></tr>`
+          : `<tr>
+              <td class="std-col"><span class="std-tag">${r.code}</span><br><strong>${r.name}</strong><span class="std-desc">${r.desc}</span></td>
+              <td>${r.as}</td><td>${r.a}</td><td>${r.b}</td><td>${r.c}</td><td>${r.d}</td><td>${r.e}</td>
+            </tr>`
+        ).join("")}</tbody>
+      </table></div>`;
+    }
+  }
+  $("selScaleView").onchange=renderScaleTable;
+  $("selStdFilter").onchange=renderScaleTable;
+  renderScaleTable();
+
+  function updCnt(){
+    $("c1").textContent=S.filter(x=>$(x[0]).value.trim().length>3).length+"/9";
+    $("c2").textContent=RF.filter(x=>$(x[0]).value.trim().length>3).length+"/6";
+  }
+  function getData(){
+    const st={},rf={};
+    S.forEach(x=>st[x[0]]=$(x[0]).value);
+    RF.forEach(x=>rf[x[0]]=$(x[0]).value);
+    return{cls:$("sCls").value,stu:$("sStu").value,prj:$("sPrj").value,prjT:$("sPrj").options[$("sPrj").selectedIndex]?.text||"",st,rf,photos,at:new Date().toLocaleString()};
+  }
+  function setData(d){
+    if(!d)return;
+    if(d.cls&&R[d.cls]){$("sCls").value=d.cls;fillStu()}
+    if(d.stu)$("sStu").value=d.stu;
+    if(d.prj){$("sPrj").value=d.prj;renderMeta()}
+    if(d.st)S.forEach(x=>$(x[0]).value=d.st[x[0]]||"");
+    if(d.rf)RF.forEach(x=>$(x[0]).value=d.rf[x[0]]||"");
+    photos=Array.isArray(d.photos)?d.photos:[];renderPh();updCnt();
+  }
+  function save(){updCnt();stg.set("ykps_draft",JSON.stringify(getData()))}
+  document.querySelectorAll("textarea").forEach(e=>{e.oninput=save});
+
+  document.querySelectorAll(".tab").forEach(b=>b.onclick=function(){
+    document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+    this.classList.add("active");
+    const t=this.dataset.p;
+    ["p1","p2","p3"].forEach(id=>$(id).classList.toggle("hidden",id!==t));
+  });
+  document.querySelectorAll("[data-lang]").forEach(b=>b.onclick=function(){
+    document.querySelectorAll("[data-lang]").forEach(x=>x.classList.remove("active"));
+    this.classList.add("active");
+    document.body.classList.remove("lang-en","lang-zh");
+    if(this.dataset.lang!=="both")document.body.classList.add("lang-"+this.dataset.lang);
+  });
+
+  $("phIn").onchange=e=>Array.from(e.target.files||[]).forEach(f=>{
+    const r=new FileReader();r.onload=ev=>{photos.push(ev.target.result);renderPh();save()};r.readAsDataURL(f);
+  });
+  function renderPh(){
+    $("phGrid").innerHTML="";
+    photos.forEach((src,i)=>{
+      const d=document.createElement("div");d.style.cssText="position:relative;width:90px;height:90px;border-radius:8px;overflow:hidden;border:1px solid var(--bd)";
+      d.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover"/><button type="button" style="position:absolute;top:2px;right:2px;background:#231815;color:#fff;border:none;border-radius:50%;width:20px;height:20px;cursor:pointer">×</button>`;
+      d.querySelector("button").onclick=()=>{photos.splice(i,1);renderPh();save()};
+      $("phGrid").appendChild(d);
+    });
+  }
+
+  $("bWag").onclick=()=>{ loadWagollForBand($("selBand").value); };
+  $("bRst").onclick=()=>{S.forEach(x=>$(x[0]).value="");RF.forEach(x=>$(x[0]).value="");photos=[];renderPh();stg.del("ykps_draft");updCnt();$("subBanner").style.display="none";toast("Cleared / 已清空")};
+
+  // Embed state JSON safely inside exported HTML so students or teacher can reload & edit anytime
+  function mkHtml(d){
+    const safeState=JSON.stringify(d).replace(/<\/script>/gi,"<\\/script>");
+    return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${d.cls}_${d.stu}</title></head><body style="font-family:sans-serif;max-width:850px;margin:20px auto;padding:14px;color:#231815"><h2 style="color:#004405;border-bottom:3px solid #62A60A;padding-bottom:6px">${d.stu} (${d.cls}) · ${d.prjT}</h2><p>Saved / Updated: ${d.at}</p><table border="1" cellpadding="6" style="border-collapse:collapse;width:100%;border-color:#e2dfd7">${S.map(x=>`<tr><th style="background:#f2f8ea;color:#004405;text-align:left;width:32%">${x[1]}</th><td>${(d.st[x[0]]||"—").replace(/\n/g,"<br>")}</td></tr>`).join("")}${RF.map(x=>`<tr><th style="background:#fef8e6;color:#231815;text-align:left;width:32%">${x[1]}</th><td>${(d.rf[x[0]]||"—").replace(/\n/g,"<br>")}</td></tr>`).join("")}</table>${(d.photos||[]).map(u=>`<img src="${u}" style="max-width:260px;margin:6px;border:1px solid #e2dfd7"/>`).join("")}<script id="ykps-portfolio-data" type="application/json">${safeState}<\/script></body></html>`;
+  }
+
+  function parseHtmlPortfolio(htmlText){
+    const m=String(htmlText).match(/<script id="ykps-portfolio-data" type="application\/json">([\s\S]*?)<\/script>/i);
+    if(m&&m[1]){
+      return JSON.parse(m[1]);
+    }
+    return null;
+  }
+
+  $("resumeHtmlIn").onchange=function(e){
+    const f=e.target.files[0];
+    if(!f)return;
+    const r=new FileReader();
+    r.onload=ev=>{
+      try{
+        const parsed=parseHtmlPortfolio(ev.target.result);
+        if(parsed){
+          setData(parsed);
+          save();
+          toast(`✓ Loaded ${parsed.stu}'s portfolio! Edit and re-upload to OneDrive when ready.`);
+        }else{
+          toast("Could not read portfolio data from that file.");
+        }
+      }catch(err){toast("Invalid portfolio HTML file.");}
+    };
+    r.readAsText(f);
+    e.target.value="";
+  };
+
+  function dl(fn,txt,tp){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type:tp}));a.download=fn;document.body.appendChild(a);a.click();a.remove()}
+
+  function getOneDriveLink(){
+    return (stg.get("ykps_od_req_link") || DEFAULT_ONEDRIVE_REQUEST_URL || "").trim();
+  }
+
+  function doSub(){
+    const d=getData();
+    const safeStu=d.stu.replace(/[^a-zA-Z0-9_-]/g,"_");
+    const safePrj=d.prj.replace(/[^a-zA-Z0-9_-]/g,"_");
+    const dateTag=new Date().toISOString().slice(0,10);
+    const fileName=`${d.cls}_${safeStu}_${safePrj}_${dateTag}_Portfolio.html`;
+
+    subs[d.cls+"::"+d.stu]=d;
+    stg.set("ykps_subs",JSON.stringify(subs));
+
+    dl(fileName, mkHtml(d), "text/html");
+
+    const odUrl=getOneDriveLink();
+    const bn=$("subBanner");
+    bn.style.display="block";
+    window.open(odUrl, "_blank", "noopener");
+    bn.innerHTML=`✓ <strong>Downloaded <code>${fileName}</code>!</strong> Drop that file into the YK Pao OneDrive upload tab that just opened (or <a href="${odUrl}" target="_blank" style="color:var(--ykp-green-dark);font-weight:800">click here to open OneDrive Upload</a>).`;
+    toast("✓ Portfolio downloaded & YK Pao OneDrive Upload opened!");
+  }
+  $("bSub1").onclick=$("bSub2").onclick=doSub;
+
+  $("mStu").onclick=()=>{$("stuView").classList.remove("hidden");$("tchView").classList.add("hidden");$("mStu").classList.add("active");$("mTch").classList.remove("active")};
+  $("mTch").onclick=()=>{$("pwErr").style.display="none";$("pwIn").value="";$("pwMod").classList.add("open");$("pwIn").focus()};
+  $("pwCan").onclick=()=>$("pwMod").classList.remove("open");
+  function unlock(){
+    if($("pwIn").value==="Graham1987"){$("pwMod").classList.remove("open");$("stuView").classList.add("hidden");$("tchView").classList.remove("hidden");$("mTch").classList.add("active");$("mStu").classList.remove("active");renderTch()}
+    else $("pwErr").style.display="block";
+  }
+  $("pwOk").onclick=unlock;$("pwIn").onkeydown=e=>{if(e.key==="Enter")unlock()};
+  $("bLock").onclick=()=>$("mStu").click();
+
+  $("odLink").value=getOneDriveLink();
+  $("bOdOpen").href=getOneDriveLink();
+  $("bOdSave").onclick=()=>{
+    const val=$("odLink").value.trim() || DEFAULT_ONEDRIVE_REQUEST_URL;
+    stg.set("ykps_od_req_link",val);
+    $("odLink").value=val;
+    $("bOdOpen").href=val;
+    toast("✓ OneDrive Request Files link saved!");
+  };
+
+  $("tchLoadHtmlIn").onchange=function(e){
+    const files=Array.from(e.target.files||[]);
+    let loaded=0;
+    files.forEach(f=>{
+      const r=new FileReader();
+      r.onload=ev=>{
+        try{
+          const parsed=parseHtmlPortfolio(ev.target.result);
+          if(parsed&&parsed.cls&&parsed.stu){
+            subs[parsed.cls+"::"+parsed.stu]=parsed;
+            stg.set("ykps_subs",JSON.stringify(subs));
+            loaded++;
+            renderTch();
+            toast(`✓ Loaded ${loaded} student portfolio(s) into Teacher Portal!`);
+          }
+        }catch(err){}
+      };
+      r.readAsText(f);
+    });
+    e.target.value="";
+  };
+
+  function renderTch(){
+    const ks=Object.keys(subs);
+    const realSubs=ks.filter(k=>!k.startsWith("TRIAL_TEST::"));
+    $("stSub").textContent=realSubs.length;$("tChips").innerHTML="";
+    const ab=document.createElement("button");ab.className="pill"+(actCls==="ALL"?" active":"");ab.textContent=`All Enrolled (${realSubs.length}/180)`;ab.onclick=()=>{actCls="ALL";renderTch()};$("tChips").appendChild(ab);
+    Object.keys(RAW_ROSTERS).forEach(c=>{
+      const list=RAW_ROSTERS[c],cnt=list.filter(n=>subs[c+"::"+n]).length;
+      const b=document.createElement("button");b.className="pill"+(actCls===c?" active":"");b.textContent=`${c} (${cnt}/${list.length})`;b.onclick=()=>{actCls=c;renderTch()};$("tChips").appendChild(b);
+    });
+    const tb=document.createElement("button");tb.className="pill"+(actCls==="TRIAL_TEST"?" active":"");
+    const tCnt=TRIAL_PROFILES.filter(n=>subs["TRIAL_TEST::"+n]).length;
+    tb.textContent=`TRIAL_TEST (${tCnt})`;tb.onclick=()=>{actCls="TRIAL_TEST";renderTch()};$("tChips").appendChild(tb);
+
+    $("tGrid").innerHTML="";
+    const classesToRender=actCls==="ALL"?Object.keys(RAW_ROSTERS):[actCls];
+    classesToRender.forEach(c=>(R[c]||[]).forEach(n=>{
+      const k=c+"::"+n,s=subs[k];
+      const t=document.createElement("div");t.className="tile"+(s?" done":"");
+      t.innerHTML=`<span><strong>${n}</strong> <small>(${c})</small></span><span>${s?"✓ Saved":"—"}</span>`;
+      if(s)t.onclick=()=>{
+        actKey=k;$("dtTitle").textContent=n+" ("+c+")";$("dtBody").innerHTML=mkHtml(s);
+        $("dtMod").classList.add("open");
+      };
+      $("tGrid").appendChild(t);
+    }));
+  }
+  $("dtCls").onclick=()=>$("dtMod").classList.remove("open");
+  $("dtDl").onclick=()=>{const s=subs[actKey];if(s)dl(s.cls+"_"+s.stu+".html",mkHtml(s),"text/html")};
+  $("dtEd").onclick=()=>{const s=subs[actKey];if(s){setData(s);$("dtMod").classList.remove("open");$("mStu").click()}};
+  $("bExp").onclick=()=>dl("YKPS_STEAM_All.json",JSON.stringify(subs,null,2),"application/json");
+
+  try{setData(JSON.parse(stg.get("ykps_draft")||"null"))}catch(e){}
+  updCnt();
+})();
+</script>
+</body>
+</html>
